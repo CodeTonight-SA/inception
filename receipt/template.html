@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="receipt_gen.py (GRASP AI Receipt)">
+<title>GRASP · AI Receipt — @TITLE@</title>
+<style>
+:root{
+  --desk:#0e1014; --desk2:#161a21;
+  --paper:#f4efe2; --ink:#1c1e24; --dim:#6f6a5c; --line:#c9c2ae;
+  --green:#0c7a3c; --greenbg:#e2f2e7; --greenln:#a4d6b8;
+  --red:#c1121f; --redbg:#fbe3e3; --redln:#eda3a8;
+  --band:#121419; --bandink:#eae8df; --amber:#d99a2b;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:
+    radial-gradient(1100px 620px at 50% -12%, #1d222d 0%, var(--desk) 58%),
+    repeating-linear-gradient(0deg, var(--desk) 0 2px, var(--desk2) 2px 4px);
+  min-height:100vh;
+  font-family:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  color:var(--ink);
+  display:flex; justify-content:center;
+  padding:52px 18px 90px;
+}
+.desk{width:100%; max-width:568px}
+.receipt{
+  position:relative;
+  background:linear-gradient(180deg,var(--paper) 0%, var(--paper) 90%, #ece5d3 100%);
+  border:1px solid #2b2f3a; border-radius:2px;
+  box-shadow:0 34px 70px -22px rgba(0,0,0,.75), 0 10px 26px rgba(0,0,0,.5);
+  padding:30px 40px 34px;
+  transform:rotate(-.35deg);
+  transition:transform .5s ease;
+}
+.receipt:hover{transform:rotate(0deg)}
+.receipt::before,.receipt::after{
+  content:""; position:absolute; top:0; bottom:0; width:13px;
+  background-image:radial-gradient(circle at 50% 50%, var(--desk) 0 3.7px, transparent 4.2px);
+  background-size:13px 18px; background-position:0 5px;
+}
+.receipt::before{left:-6px}
+.receipt::after{right:-6px}
+.band{
+  background:var(--band); color:var(--bandink);
+  margin:-30px -40px 26px; padding:18px 40px 14px;
+  border-bottom:3px double #2c2f38;
+}
+.brand{font-size:20px; letter-spacing:.14em; font-weight:700}
+.brand .dim{color:var(--amber); padding:0 6px}
+.sub{font-size:10px; letter-spacing:.09em; color:#8d91a0; margin-top:5px; text-transform:uppercase}
+.meta{display:flex; justify-content:space-between; align-items:center; margin-top:12px; font-size:11px}
+.recid{color:#6ee7a0; letter-spacing:.04em}
+.selfcheck{font-size:10px; padding:2px 9px; border:1px solid #3a3f4c; border-radius:99px; color:#9aa1b0}
+.selfcheck.ok{color:#6ee7a0; border-color:#2f6b4a}
+.selfcheck.bad{color:#ff8a94; border-color:#7a3338}
+.sec{
+  font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--dim);
+  border-bottom:1px dashed var(--line); padding-bottom:6px; margin:26px 0 12px; font-weight:700;
+}
+.resp{font-size:13.5px; line-height:1.75; margin:0}
+.chip{
+  font-family:inherit; font-size:11px; background:#fff7df; color:#7a5a12;
+  border:1px solid #e0c983; border-radius:4px; padding:1px 5px; margin:0 1px;
+  cursor:pointer; vertical-align:1px;
+}
+.chip:hover{background:#ffe9ad}
+.ccard{
+  position:relative; border:1px solid var(--line); border-left:5px solid var(--line);
+  border-radius:3px; padding:13px 15px 11px; margin:13px 0; background:rgba(255,255,255,.4);
+}
+.ccard[data-verdict="verified"],.ccard[data-verdict="fuzzy"]{
+  border-left-color:var(--green);
+  background:linear-gradient(180deg,var(--greenbg), rgba(226,242,231,.45));
+}
+.ccard[data-verdict="not_found"]{
+  border-left-color:var(--red);
+  background:linear-gradient(180deg,var(--redbg), rgba(251,227,227,.45));
+}
+.cquote{font-size:13px; line-height:1.6; padding-right:92px}
+.cmark{color:var(--dim)}
+.stamp{
+  position:absolute; top:10px; right:10px; font-size:10px; font-weight:700; letter-spacing:.08em;
+  padding:4px 8px; border-radius:3px; border:2px solid; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.18);
+  transform:rotate(2deg);
+}
+.stamp.ok{color:var(--green); border-color:var(--green)}
+.stamp.bad{color:var(--red); border-color:var(--red); transform:rotate(-2deg)}
+.cdetail{font-size:11px; color:var(--dim); margin-top:9px}
+.cdetail .mode{color:var(--green); font-weight:700}
+.ccard[data-verdict="not_found"] .cdetail .mode{color:var(--red)}
+.cnote{font-size:10.5px; color:#8a8473; margin-top:6px; font-style:italic}
+.csrc{font-size:10px; color:var(--dim); margin-top:7px}
+.ccard.flash{outline:3px solid var(--amber); outline-offset:2px}
+.src{
+  font-size:12px; border:1px solid var(--line); border-radius:3px; margin:8px 0;
+  background:rgba(255,255,255,.35);
+}
+.src summary{cursor:pointer; padding:9px 12px; list-style:none; user-select:none}
+.src summary::-webkit-details-marker{display:none}
+.src summary::before{content:"▸ "; color:var(--dim)}
+.src[open] summary::before{content:"▾ "}
+.srctitle{font-weight:700}
+.srcmeta{color:var(--dim); font-size:10px}
+.srcurl{display:block; font-size:10px; color:#3b5b9a; padding:0 12px 7px; word-break:break-all}
+.srctext{
+  margin:0 10px 10px; padding:11px; background:#fffdf6; border:1px solid var(--line);
+  font-size:10.5px; line-height:1.7; max-height:150px; overflow:auto;
+  white-space:pre-wrap; word-break:break-word;
+}
+.grow{
+  display:flex; justify-content:space-between; align-items:baseline;
+  border:1px solid var(--line); padding:13px 15px; background:#fffdf6; border-radius:3px;
+}
+.glabel{font-size:10px; letter-spacing:.2em; color:var(--dim)}
+.gvalue{font-size:27px; font-weight:700}
+.tallyline{font-size:11px; color:var(--dim); margin-top:7px; display:block; text-align:right}
+.barcode{display:flex; gap:1px; height:34px; align-items:stretch; margin:12px 0 7px}
+.barcode .bar{flex:1 0 0}
+.barcode .bar.on{background:var(--ink)}
+.fphex{font-size:10px; word-break:break-all; color:var(--dim); line-height:1.65}
+.fpline{font-size:10px; color:var(--dim); margin-top:5px}
+.integrity{margin-top:12px; font-size:11px; padding:9px 11px; border-radius:3px; font-weight:700}
+.integrity.ok{color:var(--green); background:var(--greenbg); border:1px solid var(--greenln)}
+.integrity.bad{color:var(--red); background:var(--redbg); border:1px solid var(--redln)}
+.foot{margin-top:28px; border-top:2px dashed var(--line); padding-top:17px; text-align:center}
+.moat{font-size:15px; letter-spacing:.05em}
+.moat b{color:var(--green)}
+.floor{font-size:10px; color:var(--dim); margin-top:7px; line-height:1.65}
+.demos{font-size:10px; color:#a0522d; margin-top:9px}
+.actions{margin-top:15px; display:flex; gap:10px; justify-content:center}
+.actions button{
+  font-family:inherit; font-size:12px; padding:9px 17px; cursor:pointer; border-radius:3px;
+  background:var(--band); color:var(--bandink); border:1px solid #353a47;
+}
+.actions button:hover{background:#232833}
+.built{font-size:9px; color:#a8a291; margin-top:12px}
+@media print{
+  body{background:#fff; padding:0; display:block}
+  .receipt{transform:none; box-shadow:none; border:none; max-width:100%}
+  .receipt::before,.receipt::after{display:none}
+  .actions,.built{display:none}
+  .srctext{max-height:none}
+}
+</style>
+</head>
+<body>
+<main class="desk">
+  <article class="receipt" id="receipt">
+    <header class="band">
+      <div class="brand">GRASP<span class="dim">//</span>AI&nbsp;RECEIPT</div>
+      <div class="sub">governed reasoning &amp; signable provenance · cite.verify floor</div>
+      <div class="meta">
+        <span class="recid" id="recid">@RECORD_ID@</span>
+        <span class="selfcheck" id="selfcheck">self-check …</span>
+      </div>
+    </header>
+
+    <section class="claim">
+      <h2 class="sec">Claim</h2>
+      <p class="resp" id="response"></p>
+    </section>
+
+    <section class="cites">
+      <h2 class="sec">Citations · verified in this browser</h2>
+      <div id="citelist"></div>
+    </section>
+
+    <section class="srcs">
+      <h2 class="sec">Sources</h2>
+      <div id="srclist"></div>
+    </section>
+
+    <section class="grounding">
+      <h2 class="sec">Grounding</h2>
+      <div class="grow">
+        <span class="glabel">GROUNDING RATE</span>
+        <span class="gvalue" id="gvalue">—</span>
+      </div>
+      <span class="tallyline" id="tally"></span>
+    </section>
+
+    <section class="fp">
+      <h2 class="sec">Fingerprint · content-addressed</h2>
+      <div class="barcode" id="barcode" aria-hidden="true"></div>
+      <div class="fphex" id="fphex">@FP@</div>
+      <div class="fpline">sha256 of the canonical claim set (title · response · sources · citations) — recomputed live from the embedded data, no network</div>
+      <div class="integrity" id="integrity">verifying …</div>
+    </section>
+
+    <footer class="foot">
+      <div class="moat">Don't trust it — <b>witness it.</b></div>
+      <div class="floor">cite.verify arithmetic: exact substring → typographic-tolerant → not_found.<br>String match, not judgement. Open one file. No install. No network. No trust required.</div>
+      <div class="demos">demo receipt — c3 and c5 are intentionally fabricated to demonstrate detection.</div>
+      <div class="actions">
+        <button id="btnPrint" type="button">Print receipt</button>
+        <button id="btnRe" type="button">Re-run verification</button>
+      </div>
+      <div class="built">built deterministically by receipt_gen.py · same spec ⇒ same bytes</div>
+    </footer>
+  </article>
+</main>
+
+<script>
+window.RECEIPT_DATA = @DATA@;
+window.RECEIPT_FP = "@FP@";
+window.RECEIPT_ID = "@RECORD_ID@";
+@CORE@
+</script>
+<script>
+(function () {
+  'use strict';
+  var data = window.RECEIPT_DATA;
+  var fp = window.RECEIPT_FP;
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text !== undefined) n.textContent = text;
+    return n;
+  }
+
+  function esc(s) {
+    var d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  function occurrences(text, q) {
+    var n = 0, i = 0;
+    while (i !== -1) { i = text.indexOf(q, i); if (i !== -1) { n++; i += q.length; } }
+    return n;
+  }
+
+  function renderResponse() {
+    var box = document.getElementById('response');
+    box.innerHTML = esc(data.response).replace(/\[(c\d+)\]/g,
+      '<button class="chip" data-cid="$1">[$1]</button>');
+  }
+
+  function renderCitations(record) {
+    var list = document.getElementById('citelist');
+    list.innerHTML = '';
+    var byId = {};
+    data.sources.forEach(function (s) { byId[s.id] = s; });
+    data.citations.forEach(function (c) {
+      var r = null;
+      record.citations.forEach(function (x) { if (x.id === c.id) r = x; });
+      var src = byId[c.source_id];
+      var card = el('section', 'ccard');
+      card.dataset.cid = c.id;
+      card.dataset.verdict = r.status;
+      var top = el('div', 'cquote');
+      top.appendChild(el('span', 'cmark', '“'));
+      top.appendChild(document.createTextNode(c.quote));
+      top.appendChild(el('span', 'cmark', '”'));
+      card.appendChild(top);
+
+      var stamp = el('span', 'stamp');
+      if (r.status === 'verified') { stamp.className = 'stamp ok'; stamp.textContent = '✓ VERIFIED'; }
+      else if (r.status === 'fuzzy') { stamp.className = 'stamp ok'; stamp.textContent = '✓ VERIFIED ≈'; }
+      else { stamp.className = 'stamp bad'; stamp.textContent = '✗ NOT-FOUND'; }
+      card.appendChild(stamp);
+
+      var detail = el('div', 'cdetail');
+      var mode;
+      if (r.status === 'verified')
+        mode = 'exact match · offsets [' + r.start + '–' + r.end + ']';
+      else if (r.status === 'fuzzy')
+        mode = 'typographic-tolerant (fuzzy) · offsets [' + r.start + '–' + r.end + ']';
+      else
+        mode = '0 occurrences at any tolerance · quote is not in source “' + (src ? src.id : '?') + '”';
+      detail.appendChild(el('span', 'mode', mode));
+      if (r.status === 'verified') {
+        var occ = occurrences(src.text, c.quote);
+        detail.appendChild(el('span', 'occ',
+          ' · ' + occ + ' occurrence' + (occ === 1 ? '' : 's') + ' in source'));
+      }
+      card.appendChild(detail);
+
+      if (c.note) card.appendChild(el('div', 'cnote', c.note));
+      var ref = el('div', 'csrc',
+        'src ' + (src ? src.id : '?') + ' · ' + (src ? src.title : 'unknown source') +
+        ' · sha256 ' + (record.sources[src ? src.id : ''] || {}).sha256 + '' );
+      card.appendChild(ref);
+      list.appendChild(card);
+    });
+  }
+
+  function renderSources(record) {
+    var list = document.getElementById('srclist');
+    list.innerHTML = '';
+    data.sources.forEach(function (s) {
+      var det = el('details', 'src');
+      var sum = el('summary');
+      sum.appendChild(el('span', 'srctitle', s.title));
+      sum.appendChild(el('span', 'srcmeta',
+        '  ' + record.sources[s.id].chars + ' chars · sha256 ' +
+        record.sources[s.id].sha256.slice(0, 16) + '…'));
+      det.appendChild(sum);
+      if (s.url) {
+        var a = el('a', 'srcurl', s.url);
+        a.href = s.url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        det.appendChild(a);
+      }
+      det.appendChild(el('pre', 'srctext', s.text));
+      list.appendChild(det);
+    });
+  }
+
+  function renderGrounding(record) {
+    var pct = Math.round(record.grounding_rate * 100);
+    document.getElementById('gvalue').textContent = pct + '%';
+    document.getElementById('tally').textContent =
+      record.tally.verified + ' verified · ' + record.tally.fuzzy + ' fuzzy · ' +
+      record.tally.not_found + ' not_found';
+  }
+
+  function renderIntegrity() {
+    var recomputed = CITE.fingerprint(data);
+    var ok = recomputed === fp;
+    var box = document.getElementById('integrity');
+    box.className = 'integrity ' + (ok ? 'ok' : 'bad');
+    box.textContent = ok
+      ? '✓ INTEGRITY OK — embedded claim set re-hashes to ' + fp.slice(0, 16) + '…'
+      : '✗ INTEGRITY FAILED — content was altered after signing (embedded ' + fp.slice(0, 16) +
+        ' ≠ recomputed ' + recomputed.slice(0, 16) + ')';
+    var sc = document.getElementById('selfcheck');
+    sc.className = 'selfcheck ' + (ok ? 'ok' : 'bad');
+    sc.textContent = ok ? 'self-check ✓' : 'self-check ✗';
+  }
+
+  function renderBarcode() {
+    var box = document.getElementById('barcode');
+    box.innerHTML = '';
+    for (var i = 0; i < 64; i++) {
+      var bit = parseInt(fp.substr(i >> 2, 1), 16) & (1 << (3 - (i & 3)));
+      box.appendChild(el('span', 'bar' + (bit ? ' on' : '')));
+    }
+  }
+
+  function runVerify() {
+    var record = CITE.verifyAll(data);
+    renderResponse();
+    renderCitations(record);
+    renderSources(record);
+    renderGrounding(record);
+    renderIntegrity();
+    renderBarcode();
+    return record;
+  }
+
+  document.getElementById('btnPrint').addEventListener('click', function () { window.print(); });
+  document.getElementById('btnRe').addEventListener('click', runVerify);
+  document.getElementById('response').addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t.classList || !t.classList.contains('chip')) return;
+    var card = document.querySelector('.ccard[data-cid="' + t.dataset.cid + '"]');
+    if (card) {
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      card.classList.add('flash');
+      setTimeout(function () { card.classList.remove('flash'); }, 1300);
+    }
+  });
+  runVerify();
+})();
+</script>
+</body>
+</html>

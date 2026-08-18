@@ -1,0 +1,137 @@
+════════════════════════════════════════════════════════════════════
+  CITECOP · the anti-hallucination button — demo run
+  source: demo/gettysburg_address.txt  (Lincoln, Gettysburg Address — Bliss copy, 1864)
+════════════════════════════════════════════════════════════════════
+
+>>> 4 real quotes + 2 fabricated quotes checked against the same source
+
+╭──────────────────────────────────────────────────────────────────────────╮
+│ ◆ CITECOP · the anti-hallucination button                                │
+│ deterministic citation provenance — string arithmetic, not judgement     │
+├──────────────────────────────────────────────────────────────────────────┤
+│ source  gettysburg_address.txt                                           │
+│ sha256  cbe246a0ff5c6a329b254bab87911096772b22f1840e2a78521d5540d094c2cb │
+│ chars   1469   ·   quotes to check: 6                                    │
+╰──────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────────────────────────────────────────────────────╮
+│ ✔ VERIFIED   ·   rung: exact                                             │
+├──────────────────────────────────────────────────────────────────────────┤
+│ quote   Four score and seven years ago                                   │
+│ offsets chars 0–30 of 1469                                               │
+│ context ⟪Four score and seven years ago⟫ our fathers brought forth on    │
+│         this con…                                                        │
+├──────────────────────────────────────────────────────────────────────────┤
+│ source  gettysburg_address.txt  ·  sha256 cbe246a0ff5c…c2cb              │
+╰──────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────────────────────────────────────────────────────╮
+│ ✔ VERIFIED   ·   rung: whitespace · typographic                          │
+├──────────────────────────────────────────────────────────────────────────┤
+│ quote   government of the people, by the people, for the people          │
+│ offsets chars 1379–1434 of 1469                                          │
+│ context …ave a new birth of freedom — and that ⟪government of the        │
+│         people, by the people, for the people⟫, shall not perish from    │
+│         the earth.                                                       │
+├──────────────────────────────────────────────────────────────────────────┤
+│ source  gettysburg_address.txt  ·  sha256 cbe246a0ff5c…c2cb              │
+╰──────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────────────────────────────────────────────────────╮
+│ ✔ VERIFIED   ·   rung: whitespace · typographic                          │
+├──────────────────────────────────────────────────────────────────────────┤
+│ quote   we can not dedicate – we can not consecrate – we can not hallow  │
+│         – this ground                                                    │
+│ offsets chars 583–660 of 1469                                            │
+│ context …uld do this.                                                    │
+│                                                                          │
+│         But, in a larger sense, ⟪we can not dedicate — we can not        │
+│         consecrate — we can not hallow — this ground⟫. The brave men,    │
+│         living and dead, who …                                           │
+├──────────────────────────────────────────────────────────────────────────┤
+│ source  gettysburg_address.txt  ·  sha256 cbe246a0ff5c…c2cb              │
+╰──────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────────────────────────────────────────────────────╮
+│ ✔ VERIFIED   ·   rung: case-insensitive                                  │
+├──────────────────────────────────────────────────────────────────────────┤
+│ quote   Government of the People, by the People, for the People          │
+│ offsets chars 1379–1434 of 1469                                          │
+│ context …ave a new birth of freedom — and that ⟪government of the        │
+│         people, by the people, for the people⟫, shall not perish from    │
+│         the earth.                                                       │
+├──────────────────────────────────────────────────────────────────────────┤
+│ source  gettysburg_address.txt  ·  sha256 cbe246a0ff5c…c2cb              │
+╰──────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────────────────────────────────────────────────────╮
+│ ✘ NOT-FOUND                                                              │
+├──────────────────────────────────────────────────────────────────────────┤
+│ quote   we hold these truths to be self-evident                          │
+│                                                                          │
+│ — no rung of the ladder could anchor this string in the source —         │
+│ ladder  exact → whitespace → typographic → case                          │
+├──────────────────────────────────────────────────────────────────────────┤
+│ source  gettysburg_address.txt  ·  sha256 cbe246a0ff5c…c2cb              │
+╰──────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────────────────────────────────────────────────────╮
+│ ✘ NOT-FOUND                                                              │
+├──────────────────────────────────────────────────────────────────────────┤
+│ quote   Four score and seven years ago our forefathers brought forth     │
+│                                                                          │
+│ — no rung of the ladder could anchor this string in the source —         │
+│ ladder  exact → whitespace → typographic → case                          │
+├──────────────────────────────────────────────────────────────────────────┤
+│ source  gettysburg_address.txt  ·  sha256 cbe246a0ff5c…c2cb              │
+╰──────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────────────────────────────────────────────────────╮
+│ grounding  ███████░░░  0.667  ·  4/6                                     │
+│ tally    verified 4  ·  not_found 2                                      │
+├──────────────────────────────────────────────────────────────────────────┤
+│ ✘ gate   EXIT 1 — unproven quote present. never ship an unproven quote.  │
+╰──────────────────────────────────────────────────────────────────────────╯
+exit code: 1
+
+>>> all quotes real — the gate should go GREEN (exit 0)
+
+╭──────────────────────────────────────────────────────────────────────────╮
+│ ◆ CITECOP · the anti-hallucination button                                │
+│ deterministic citation provenance — string arithmetic, not judgement     │
+├──────────────────────────────────────────────────────────────────────────┤
+│ source  gettysburg_address.txt                                           │
+│ sha256  cbe246a0ff5c6a329b254bab87911096772b22f1840e2a78521d5540d094c2cb │
+│ chars   1469   ·   quotes to check: 3                                    │
+╰──────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────────────────────────────────────────────────────╮
+│ ✔ VERIFIED   ·   rung: exact                                             │
+├──────────────────────────────────────────────────────────────────────────┤
+│ quote   Four score and seven years ago                                   │
+│ offsets chars 0–30 of 1469                                               │
+│ context ⟪Four score and seven years ago⟫ our fathers brought forth on    │
+│         this con…                                                        │
+├──────────────────────────────────────────────────────────────────────────┤
+│ source  gettysburg_address.txt  ·  sha256 cbe246a0ff5c…c2cb              │
+╰──────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────────────────────────────────────────────────────╮
+│ ✔ VERIFIED   ·   rung: exact                                             │
+├──────────────────────────────────────────────────────────────────────────┤
+│ quote   government of the people, by the people, for the people          │
+│ offsets chars 1379–1434 of 1469                                          │
+│ context …ave a new birth of freedom — and that ⟪government of the        │
+│         people, by the people, for the people⟫, shall not perish from    │
+│         the earth.                                                       │
+├──────────────────────────────────────────────────────────────────────────┤
+│ source  gettysburg_address.txt  ·  sha256 cbe246a0ff5c…c2cb              │
+╰──────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────────────────────────────────────────────────────╮
+│ ✔ VERIFIED   ·   rung: exact                                             │
+├──────────────────────────────────────────────────────────────────────────┤
+│ quote   shall not perish from the earth                                  │
+│ offsets chars 1436–1467 of 1469                                          │
+│ context …eople, by the people, for the people, ⟪shall not perish from    │
+│         the earth⟫.                                                      │
+├──────────────────────────────────────────────────────────────────────────┤
+│ source  gettysburg_address.txt  ·  sha256 cbe246a0ff5c…c2cb              │
+╰──────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────────────────────────────────────────────────────╮
+│ grounding  ██████████  1.0  ·  3/3                                       │
+│ tally    verified 3  ·  not_found 0                                      │
+├──────────────────────────────────────────────────────────────────────────┤
+│ ✔ gate   EXIT 0 — every quote verified. ship it.                         │
+╰──────────────────────────────────────────────────────────────────────────╯
+exit code: 0

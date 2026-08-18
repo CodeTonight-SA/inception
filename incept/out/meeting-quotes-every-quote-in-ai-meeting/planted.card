@@ -1,0 +1,11 @@
+INCEPTION planted card
+slug: meeting-quotes-every-quote-in-ai-meeting
+domain: meeting quotes: every quote in AI meeting notes must exist verbatim in the transcript
+archetype: quotecheck
+deadline: 2026-03-23
+seed: 5e0280c2f673a21572bcfb2261f53202214590c19d2b8cb1b1f63d9ef69e71db
+hypothesis: a36de6c2f3eb719b95378ed3c4b32d72127b5613c93b3a055cc3ec802e8729ae
+genesis_file: 35dc56fe46a34920983776d25d5d28ebb769364839428896a7cdddddb56e721f
+tool: 56870e12a5845a1ed990e4ccac561f3da87789ac5a716e0abc4596a703fcfdf8
+root: 0ce9a2a57db265b5b6716ed4b2419adbbbc7b85ffeb4eaa27e776ce7a9d3458a
+chain: seed < genesis.md < tool

@@ -1,0 +1,11 @@
+INCEPTION planted card
+slug: password-hygiene-for-team-accounts
+domain: password hygiene for team accounts
+archetype: passgrade
+deadline: 2026-01-31
+seed: b437b5e89f1ca774dfb1677d8cbbbb9b2ef463f94224e0644ef9cc0d2afb8425
+hypothesis: 085877795c6ed329d880c12490999afcb57eeccee06ee7bc67622b10a0e1f73c
+genesis_file: 9739b8420a63402ecd569bb846e043d449482e818e420f9bef4013ac752d63d1
+tool: dac5bf38eb1543002dfaebaa6b83eb767d7e36d2cc39f0e994f6ff7e2630dac6
+root: d2998ec4ed58a4c68549fe0d612de1fc605b0bb386043a3e23d98d3a88cf7de2
+chain: seed < genesis.md < tool

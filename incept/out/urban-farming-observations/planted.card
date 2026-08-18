@@ -1,0 +1,11 @@
+INCEPTION planted card
+slug: urban-farming-observations
+domain: urban farming observations
+archetype: journal
+deadline: 2026-03-14
+seed: f4aa509e6392c6d75e95ee55da4f0d325873187d41ce73c664e61fb59e0258cf
+hypothesis: 71fbf7afa2cd17159975a2a90f689ee02b456a8c6c244e24f48d6a4ac1375019
+genesis_file: 1d346b27f40f3355034e90fb5cc06f72666f51cbdfe8de6aa4ae055fad17b4a5
+tool: c7fccdca3106aedcd58b3c7e6ee7b9f9486b231ee05d6f99210a92e782c01480
+root: 01a0b9259cf431a3231c6b7f36b19435988c20142c15e6159bad650900603d46
+chain: seed < genesis.md < tool

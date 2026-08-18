@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="receipt_gen.py (GRASP AI Receipt)">
+<title>GRASP · AI Receipt — Bitcoin's electronic cash — and two things the paper never said</title>
+<style>
+:root{
+  --desk:#0e1014; --desk2:#161a21;
+  --paper:#f4efe2; --ink:#1c1e24; --dim:#6f6a5c; --line:#c9c2ae;
+  --green:#0c7a3c; --greenbg:#e2f2e7; --greenln:#a4d6b8;
+  --red:#c1121f; --redbg:#fbe3e3; --redln:#eda3a8;
+  --band:#121419; --bandink:#eae8df; --amber:#d99a2b;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:
+    radial-gradient(1100px 620px at 50% -12%, #1d222d 0%, var(--desk) 58%),
+    repeating-linear-gradient(0deg, var(--desk) 0 2px, var(--desk2) 2px 4px);
+  min-height:100vh;
+  font-family:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  color:var(--ink);
+  display:flex; justify-content:center;
+  padding:52px 18px 90px;
+}
+.desk{width:100%; max-width:568px}
+.receipt{
+  position:relative;
+  background:linear-gradient(180deg,var(--paper) 0%, var(--paper) 90%, #ece5d3 100%);
+  border:1px solid #2b2f3a; border-radius:2px;
+  box-shadow:0 34px 70px -22px rgba(0,0,0,.75), 0 10px 26px rgba(0,0,0,.5);
+  padding:30px 40px 34px;
+  transform:rotate(-.35deg);
+  transition:transform .5s ease;
+}
+.receipt:hover{transform:rotate(0deg)}
+.receipt::before,.receipt::after{
+  content:""; position:absolute; top:0; bottom:0; width:13px;
+  background-image:radial-gradient(circle at 50% 50%, var(--desk) 0 3.7px, transparent 4.2px);
+  background-size:13px 18px; background-position:0 5px;
+}
+.receipt::before{left:-6px}
+.receipt::after{right:-6px}
+.band{
+  background:var(--band); color:var(--bandink);
+  margin:-30px -40px 26px; padding:18px 40px 14px;
+  border-bottom:3px double #2c2f38;
+}
+.brand{font-size:20px; letter-spacing:.14em; font-weight:700}
+.brand .dim{color:var(--amber); padding:0 6px}
+.sub{font-size:10px; letter-spacing:.09em; color:#8d91a0; margin-top:5px; text-transform:uppercase}
+.meta{display:flex; justify-content:space-between; align-items:center; margin-top:12px; font-size:11px}
+.recid{color:#6ee7a0; letter-spacing:.04em}
+.selfcheck{font-size:10px; padding:2px 9px; border:1px solid #3a3f4c; border-radius:99px; color:#9aa1b0}
+.selfcheck.ok{color:#6ee7a0; border-color:#2f6b4a}
+.selfcheck.bad{color:#ff8a94; border-color:#7a3338}
+.sec{
+  font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--dim);
+  border-bottom:1px dashed var(--line); padding-bottom:6px; margin:26px 0 12px; font-weight:700;
+}
+.resp{font-size:13.5px; line-height:1.75; margin:0}
+.chip{
+  font-family:inherit; font-size:11px; background:#fff7df; color:#7a5a12;
+  border:1px solid #e0c983; border-radius:4px; padding:1px 5px; margin:0 1px;
+  cursor:pointer; vertical-align:1px;
+}
+.chip:hover{background:#ffe9ad}
+.ccard{
+  position:relative; border:1px solid var(--line); border-left:5px solid var(--line);
+  border-radius:3px; padding:13px 15px 11px; margin:13px 0; background:rgba(255,255,255,.4);
+}
+.ccard[data-verdict="verified"],.ccard[data-verdict="fuzzy"]{
+  border-left-color:var(--green);
+  background:linear-gradient(180deg,var(--greenbg), rgba(226,242,231,.45));
+}
+.ccard[data-verdict="not_found"]{
+  border-left-color:var(--red);
+  background:linear-gradient(180deg,var(--redbg), rgba(251,227,227,.45));
+}
+.cquote{font-size:13px; line-height:1.6; padding-right:92px}
+.cmark{color:var(--dim)}
+.stamp{
+  position:absolute; top:10px; right:10px; font-size:10px; font-weight:700; letter-spacing:.08em;
+  padding:4px 8px; border-radius:3px; border:2px solid; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.18);
+  transform:rotate(2deg);
+}
+.stamp.ok{color:var(--green); border-color:var(--green)}
+.stamp.bad{color:var(--red); border-color:var(--red); transform:rotate(-2deg)}
+.cdetail{font-size:11px; color:var(--dim); margin-top:9px}
+.cdetail .mode{color:var(--green); font-weight:700}
+.ccard[data-verdict="not_found"] .cdetail .mode{color:var(--red)}
+.cnote{font-size:10.5px; color:#8a8473; margin-top:6px; font-style:italic}
+.csrc{font-size:10px; color:var(--dim); margin-top:7px}
+.ccard.flash{outline:3px solid var(--amber); outline-offset:2px}
+.src{
+  font-size:12px; border:1px solid var(--line); border-radius:3px; margin:8px 0;
+  background:rgba(255,255,255,.35);
+}
+.src summary{cursor:pointer; padding:9px 12px; list-style:none; user-select:none}
+.src summary::-webkit-details-marker{display:none}
+.src summary::before{content:"▸ "; color:var(--dim)}
+.src[open] summary::before{content:"▾ "}
+.srctitle{font-weight:700}
+.srcmeta{color:var(--dim); font-size:10px}
+.srcurl{display:block; font-size:10px; color:#3b5b9a; padding:0 12px 7px; word-break:break-all}
+.srctext{
+  margin:0 10px 10px; padding:11px; background:#fffdf6; border:1px solid var(--line);
+  font-size:10.5px; line-height:1.7; max-height:150px; overflow:auto;
+  white-space:pre-wrap; word-break:break-word;
+}
+.grow{
+  display:flex; justify-content:space-between; align-items:baseline;
+  border:1px solid var(--line); padding:13px 15px; background:#fffdf6; border-radius:3px;
+}
+.glabel{font-size:10px; letter-spacing:.2em; color:var(--dim)}
+.gvalue{font-size:27px; font-weight:700}
+.tallyline{font-size:11px; color:var(--dim); margin-top:7px; display:block; text-align:right}
+.barcode{display:flex; gap:1px; height:34px; align-items:stretch; margin:12px 0 7px}
+.barcode .bar{flex:1 0 0}
+.barcode .bar.on{background:var(--ink)}
+.fphex{font-size:10px; word-break:break-all; color:var(--dim); line-height:1.65}
+.fpline{font-size:10px; color:var(--dim); margin-top:5px}
+.integrity{margin-top:12px; font-size:11px; padding:9px 11px; border-radius:3px; font-weight:700}
+.integrity.ok{color:var(--green); background:var(--greenbg); border:1px solid var(--greenln)}
+.integrity.bad{color:var(--red); background:var(--redbg); border:1px solid var(--redln)}
+.foot{margin-top:28px; border-top:2px dashed var(--line); padding-top:17px; text-align:center}
+.moat{font-size:15px; letter-spacing:.05em}
+.moat b{color:var(--green)}
+.floor{font-size:10px; color:var(--dim); margin-top:7px; line-height:1.65}
+.demos{font-size:10px; color:#a0522d; margin-top:9px}
+.actions{margin-top:15px; display:flex; gap:10px; justify-content:center}
+.actions button{
+  font-family:inherit; font-size:12px; padding:9px 17px; cursor:pointer; border-radius:3px;
+  background:var(--band); color:var(--bandink); border:1px solid #353a47;
+}
+.actions button:hover{background:#232833}
+.built{font-size:9px; color:#a8a291; margin-top:12px}
+@media print{
+  body{background:#fff; padding:0; display:block}
+  .receipt{transform:none; box-shadow:none; border:none; max-width:100%}
+  .receipt::before,.receipt::after{display:none}
+  .actions,.built{display:none}
+  .srctext{max-height:none}
+}
+</style>
+</head>
+<body>
+<main class="desk">
+  <article class="receipt" id="receipt">
+    <header class="band">
+      <div class="brand">GRASP<span class="dim">//</span>AI&nbsp;RECEIPT</div>
+      <div class="sub">governed reasoning &amp; signable provenance · cite.verify floor</div>
+      <div class="meta">
+        <span class="recid" id="recid">REC-840BC3C87A60</span>
+        <span class="selfcheck" id="selfcheck">self-check …</span>
+      </div>
+    </header>
+
+    <section class="claim">
+      <h2 class="sec">Claim</h2>
+      <p class="resp" id="response"></p>
+    </section>
+
+    <section class="cites">
+      <h2 class="sec">Citations · verified in this browser</h2>
+      <div id="citelist"></div>
+    </section>
+
+    <section class="srcs">
+      <h2 class="sec">Sources</h2>
+      <div id="srclist"></div>
+    </section>
+
+    <section class="grounding">
+      <h2 class="sec">Grounding</h2>
+      <div class="grow">
+        <span class="glabel">GROUNDING RATE</span>
+        <span class="gvalue" id="gvalue">—</span>
+      </div>
+      <span class="tallyline" id="tally"></span>
+    </section>
+
+    <section class="fp">
+      <h2 class="sec">Fingerprint · content-addressed</h2>
+      <div class="barcode" id="barcode" aria-hidden="true"></div>
+      <div class="fphex" id="fphex">840bc3c87a60b1e523154fe65a29fd04f9a83f2a4040117b3052979f9adc4ffb</div>
+      <div class="fpline">sha256 of the canonical claim set (title · response · sources · citations) — recomputed live from the embedded data, no network</div>
+      <div class="integrity" id="integrity">verifying …</div>
+    </section>
+
+    <footer class="foot">
+      <div class="moat">Don't trust it — <b>witness it.</b></div>
+      <div class="floor">cite.verify arithmetic: exact substring → typographic-tolerant → not_found.<br>String match, not judgement. Open one file. No install. No network. No trust required.</div>
+      <div class="demos">demo receipt — c3 and c5 are intentionally fabricated to demonstrate detection.</div>
+      <div class="actions">
+        <button id="btnPrint" type="button">Print receipt</button>
+        <button id="btnRe" type="button">Re-run verification</button>
+      </div>
+      <div class="built">built deterministically by receipt_gen.py · same spec ⇒ same bytes</div>
+    </footer>
+  </article>
+</main>
+
+<script>
+window.RECEIPT_DATA = {
+  "title": "Bitcoin's electronic cash — and two things the paper never said",
+  "response": "Bitcoin's whitepaper proposes a purely peer-to-peer version of electronic cash [c1], with the ledger secured as a chain of hash-based proof-of-work that cannot be changed without redoing the work [c2]. The system is sometimes summarised as needing no central bank approval for transactions — a claim the paper never makes [c3]. Separately, the Universal Declaration of Human Rights opens with the principle that all human beings are born free and equal in dignity and rights [c4], and a common misquote adds that we are 'born in debt to the state' [c5].",
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Bitcoin: A Peer-to-Peer Electronic Cash System — Abstract",
+      "kind": "whitepaper",
+      "url": "https://bitcoin.org/bitcoin.pdf",
+      "text": "A purely peer-to-peer version of electronic cash would allow online payments to be sent directly from one party to another without going through a financial institution. Digital signatures provide part of the solution, but the main benefits are lost if a trusted third party is still required to prevent double-spending. We propose a solution to the double-spending problem using a peer-to-peer network. The network timestamps transactions by hashing them into an ongoing chain of hash-based proof-of-work, forming a record that cannot be changed without redoing the proof-of-work. The longest chain not only serves as proof of the sequence of events witnessed, but proof that it came from the largest pool of CPU power. As long as a majority of CPU power is controlled by nodes that are not cooperating to attack the network, they'll generate the longest chain and outpace attackers. The network itself requires minimal structure. Messages are broadcast on a best effort basis, and nodes can leave and rejoin the network at will, accepting the longest proof-of-work chain as proof of what happened while they were gone."
+    },
+    {
+      "id": "s2",
+      "title": "Universal Declaration of Human Rights, Article 1",
+      "kind": "treaty",
+      "url": "https://www.un.org/en/about-us/universal-declaration-of-human-rights",
+      "text": "All human beings are born free and equal in dignity and rights. They are endowed with reason and conscience and should act towards one another in a spirit of brotherhood."
+    }
+  ],
+  "citations": [
+    {
+      "id": "c1",
+      "source_id": "s1",
+      "quote": "The network timestamps transactions by hashing them into an ongoing chain of hash-based proof-of-work",
+      "note": "verbatim — exact substring match",
+      "expect": "verified"
+    },
+    {
+      "id": "c2",
+      "source_id": "s1",
+      "quote": "forming a record that cannot be changed without redoing the proof–of–work.",
+      "note": "verbatim, but typed with en dashes (U+2013) instead of hyphens — passes only the typographic-tolerant ladder",
+      "expect": "verified"
+    },
+    {
+      "id": "c3",
+      "source_id": "s1",
+      "quote": "no central bank approval is required for any transaction",
+      "note": "intentionally fabricated for this demo — must stamp NOT-FOUND",
+      "expect": "not_found"
+    },
+    {
+      "id": "c4",
+      "source_id": "s2",
+      "quote": "All human beings are born free and equal in dignity and rights.",
+      "note": "verbatim — exact substring match",
+      "expect": "verified"
+    },
+    {
+      "id": "c5",
+      "source_id": "s2",
+      "quote": "All human beings are born in debt to the state.",
+      "note": "intentionally fabricated for this demo — must stamp NOT-FOUND",
+      "expect": "not_found"
+    }
+  ]
+};
+window.RECEIPT_FP = "840bc3c87a60b1e523154fe65a29fd04f9a83f2a4040117b3052979f9adc4ffb";
+window.RECEIPT_ID = "REC-840BC3C87A60";
+/* verify_core.js - GRASP cite.verify arithmetic, reimplemented in plain JS.
+ * Mirrors grasp/cite_verify.py (HAPPI/1.3 cite.verify). Deterministic ladder:
+ *   exact substring -> whitespace + typographic-tolerant ("fuzzy") -> not_found.
+ * Normalisation is length-preserving, so offsets index the ORIGINAL source.
+ * Conservative ES5 so it runs identically in browsers, Node and JXA.
+ * SPDX-License-Identifier: AGPL-3.0-only  (mirror of CodeTonight SA reference)
+ */
+(function (global) {
+  'use strict';
+
+  /* ---- typographic fold (length-preserving, mirrors _CV_TYPO) ---- */
+  var TYPO = {};
+  TYPO[0x2010] = '-'; TYPO[0x2011] = '-'; TYPO[0x2012] = '-'; TYPO[0x2013] = '-';
+  TYPO[0x2014] = '-'; TYPO[0x2015] = '-';
+  TYPO[0x2018] = "'"; TYPO[0x2019] = "'"; TYPO[0x201B] = "'";
+  TYPO[0x201C] = '"'; TYPO[0x201D] = '"'; TYPO[0x201F] = '"';
+  TYPO[0x00A0] = ' '; TYPO[0x2007] = ' '; TYPO[0x2009] = ' '; TYPO[0x202F] = ' ';
+
+  function typoFold(s) {
+    var out = '', i, c, r;
+    for (i = 0; i < s.length; i++) {
+      c = s.charCodeAt(i);
+      r = TYPO[c];
+      out += (r === undefined) ? s.charAt(i) : r;
+    }
+    return out;
+  }
+
+  function escapeRegExp(s) {
+    var out = '', i, c;
+    for (i = 0; i < s.length; i++) {
+      c = s.charAt(i);
+      out += ('^$\\.*+?()[]{}|'.indexOf(c) !== -1) ? '\\' + c : c;
+    }
+    return out;
+  }
+
+  /* ---- verify ladder: returns {status, start, end} ---- */
+  function verify(quote, sourceText) {
+    var q = (quote == null ? '' : String(quote)).trim();
+    if (q === '') return { status: 'not_found', start: -1, end: -1 };
+    var idx = sourceText.indexOf(q);
+    if (idx !== -1) return { status: 'verified', start: idx, end: idx + q.length };
+    var toks = typoFold(q).split(/\s+/).filter(function (t) { return t.length > 0; });
+    if (toks.length === 0) return { status: 'not_found', start: -1, end: -1 };
+    var re = new RegExp(toks.map(escapeRegExp).join('\\s+'));
+    var m = re.exec(typoFold(sourceText));
+    if (m) return { status: 'fuzzy', start: m.index, end: m.index + m[0].length };
+    return { status: 'not_found', start: -1, end: -1 };
+  }
+
+  /* ---- canonical JSON: matches python json.dumps(sort_keys=True,
+   *      separators=(',',':'), ensure_ascii=True) on str/bool/null/int/array/obj ---- */
+  function escStr(s) {
+    var j = JSON.stringify(s);
+    var out = '', i, c, hex;
+    for (i = 0; i < j.length; i++) {
+      c = j.charCodeAt(i);
+      if (c > 0x7f) {
+        hex = c.toString(16);
+        while (hex.length < 4) hex = '0' + hex;
+        out += '\\u' + hex;
+      } else {
+        out += j.charAt(i);
+      }
+    }
+    return out;
+  }
+
+  function canonical(obj) {
+    var t = typeof obj;
+    if (obj === null) return 'null';
+    if (t === 'string') return escStr(obj);
+    if (t === 'boolean') return obj ? 'true' : 'false';
+    if (t === 'number') {
+      if (isFinite(obj) && Math.floor(obj) === obj) return String(obj);
+      return 'null'; /* floats are rejected by the generator; keep parity strict */
+    }
+    if (Array.isArray(obj)) {
+      var a = [], i;
+      for (i = 0; i < obj.length; i++) a.push(canonical(obj[i]));
+      return '[' + a.join(',') + ']';
+    }
+    if (t === 'object') {
+      var keys = Object.keys(obj).sort();
+      var p = [], k;
+      for (k = 0; k < keys.length; k++) p.push(escStr(keys[k]) + ':' + canonical(obj[keys[k]]));
+      return '{' + p.join(',') + '}';
+    }
+    return 'null';
+  }
+
+  /* ---- sha-256 (pure JS; input: UTF-8 bytes) ---- */
+  function utf8Bytes(str) {
+    var bytes = [], i, c;
+    for (i = 0; i < str.length; i++) {
+      c = str.charCodeAt(i);
+      if (c < 0x80) bytes.push(c);
+      else if (c < 0x800) bytes.push(0xc0 | (c >> 6), 0x80 | (c & 0x3f));
+      else if (c >= 0xd800 && c <= 0xdbff && i + 1 < str.length) {
+        var c2 = str.charCodeAt(i + 1);
+        if (c2 >= 0xdc00 && c2 <= 0xdfff) {
+          var cp = 0x10000 + ((c - 0xd800) << 10) + (c2 - 0xdc00);
+          bytes.push(0xf0 | (cp >> 18), 0x80 | ((cp >> 12) & 0x3f),
+                     0x80 | ((cp >> 6) & 0x3f), 0x80 | (cp & 0x3f));
+          i++;
+        } else bytes.push(0xef, 0xbf, 0xbd);
+      } else if (c >= 0xdc00 && c <= 0xdfff) bytes.push(0xef, 0xbf, 0xbd);
+      else bytes.push(0xe0 | (c >> 12), 0x80 | ((c >> 6) & 0x3f), 0x80 | (c & 0x3f));
+    }
+    return bytes;
+  }
+
+  var sha256 = (function () {
+    var K = [0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
+      0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,
+      0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,
+      0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,
+      0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+      0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,
+      0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,
+      0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+    function rotr(x, n) { return (x >>> n) | (x << (32 - n)); }
+    return function (bytes) {
+      var l = bytes.length;
+      var bitlenHi = Math.floor((l * 8) / 0x100000000);
+      var bitlenLo = (l * 8) >>> 0;
+      var paddedLen = (((l + 9 + 63) >> 6) << 6);
+      var buf = new Uint8Array(paddedLen);
+      buf.set(bytes);
+      buf[l] = 0x80;
+      var dv = new DataView(buf.buffer);
+      dv.setUint32(paddedLen - 8, bitlenHi);
+      dv.setUint32(paddedLen - 4, bitlenLo);
+      var h0 = 0x6a09e667, h1 = 0xbb67ae85, h2 = 0x3c6ef372, h3 = 0xa54ff53a,
+          h4 = 0x510e527f, h5 = 0x9b05688c, h6 = 0x1f83d9ab, h7 = 0x5be0cd19;
+      var w = new Int32Array(64);
+      var off, i;
+      for (off = 0; off < paddedLen; off += 64) {
+        for (i = 0; i < 16; i++) w[i] = dv.getInt32(off + i * 4);
+        for (i = 16; i < 64; i++) {
+          var s0 = rotr(w[i - 15], 7) ^ rotr(w[i - 15], 18) ^ (w[i - 15] >>> 3);
+          var s1 = rotr(w[i - 2], 17) ^ rotr(w[i - 2], 19) ^ (w[i - 2] >>> 10);
+          w[i] = (w[i - 16] + s0 + w[i - 7] + s1) | 0;
+        }
+        var a = h0, b = h1, c = h2, d = h3, e = h4, f = h5, g = h6, h = h7;
+        for (i = 0; i < 64; i++) {
+          var S1 = rotr(e, 6) ^ rotr(e, 11) ^ rotr(e, 25);
+          var ch = (e & f) ^ (~e & g);
+          var t1 = (h + S1 + ch + K[i] + w[i]) | 0;
+          var S0 = rotr(a, 2) ^ rotr(a, 13) ^ rotr(a, 22);
+          var maj = (a & b) ^ (a & c) ^ (b & c);
+          var t2 = (S0 + maj) | 0;
+          h = g; g = f; f = e; e = (d + t1) | 0; d = c; c = b; b = a; a = (t1 + t2) | 0;
+        }
+        h0 = (h0 + a) | 0; h1 = (h1 + b) | 0; h2 = (h2 + c) | 0; h3 = (h3 + d) | 0;
+        h4 = (h4 + e) | 0; h5 = (h5 + f) | 0; h6 = (h6 + g) | 0; h7 = (h7 + h) | 0;
+      }
+      function hex32(n) { n = n >>> 0; var s = n.toString(16); while (s.length < 8) s = '0' + s; return s; }
+      return hex32(h0) + hex32(h1) + hex32(h2) + hex32(h3) +
+             hex32(h4) + hex32(h5) + hex32(h6) + hex32(h7);
+    };
+  })();
+
+  function sha256Hex(str) { return sha256(utf8Bytes(str)); }
+
+  /* ---- provenance record, mirrors cite_verify.process() ---- */
+  function verifyAll(data) {
+    var sources = data.sources || [];
+    var citations = data.citations || [];
+    var byId = {}, srcMeta = {}, i;
+    for (i = 0; i < sources.length; i++) {
+      byId[sources[i].id] = sources[i].text;
+      srcMeta[sources[i].id] = { sha256: sha256Hex(sources[i].text), chars: sources[i].text.length };
+    }
+    var tally = { verified: 0, fuzzy: 0, not_found: 0 };
+    var results = [], j;
+    for (j = 0; j < citations.length; j++) {
+      var c = citations[j];
+      var src = byId[c.source_id];
+      var v = (src === undefined)
+        ? { status: 'not_found', start: -1, end: -1 }
+        : verify(c.quote, src);
+      tally[v.status] = (tally[v.status] || 0) + 1;
+      results.push({ id: c.id, source_id: c.source_id, status: v.status, start: v.start, end: v.end });
+    }
+    var grounded = tally.verified + tally.fuzzy;
+    var g = Math.round((grounded / Math.max(citations.length, 1)) * 1000) / 1000;
+    return { sources: srcMeta, citations: results, tally: tally, grounding_rate: g };
+  }
+
+  function fingerprint(data) { return sha256Hex(canonical(data)); }
+
+  var CITE = {
+    typoFold: typoFold,
+    verify: verify,
+    canonical: canonical,
+    sha256Hex: sha256Hex,
+    utf8Bytes: utf8Bytes,
+    verifyAll: verifyAll,
+    fingerprint: fingerprint,
+    LADDER: 'exact substring -> whitespace+typographic-tolerant ("fuzzy") -> not_found'
+  };
+
+  global.CITE = CITE;
+  if (typeof module !== 'undefined' && module.exports) module.exports = CITE;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var data = window.RECEIPT_DATA;
+  var fp = window.RECEIPT_FP;
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text !== undefined) n.textContent = text;
+    return n;
+  }
+
+  function esc(s) {
+    var d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  function occurrences(text, q) {
+    var n = 0, i = 0;
+    while (i !== -1) { i = text.indexOf(q, i); if (i !== -1) { n++; i += q.length; } }
+    return n;
+  }
+
+  function renderResponse() {
+    var box = document.getElementById('response');
+    box.innerHTML = esc(data.response).replace(/\[(c\d+)\]/g,
+      '<button class="chip" data-cid="$1">[$1]</button>');
+  }
+
+  function renderCitations(record) {
+    var list = document.getElementById('citelist');
+    list.innerHTML = '';
+    var byId = {};
+    data.sources.forEach(function (s) { byId[s.id] = s; });
+    data.citations.forEach(function (c) {
+      var r = null;
+      record.citations.forEach(function (x) { if (x.id === c.id) r = x; });
+      var src = byId[c.source_id];
+      var card = el('section', 'ccard');
+      card.dataset.cid = c.id;
+      card.dataset.verdict = r.status;
+      var top = el('div', 'cquote');
+      top.appendChild(el('span', 'cmark', '“'));
+      top.appendChild(document.createTextNode(c.quote));
+      top.appendChild(el('span', 'cmark', '”'));
+      card.appendChild(top);
+
+      var stamp = el('span', 'stamp');
+      if (r.status === 'verified') { stamp.className = 'stamp ok'; stamp.textContent = '✓ VERIFIED'; }
+      else if (r.status === 'fuzzy') { stamp.className = 'stamp ok'; stamp.textContent = '✓ VERIFIED ≈'; }
+      else { stamp.className = 'stamp bad'; stamp.textContent = '✗ NOT-FOUND'; }
+      card.appendChild(stamp);
+
+      var detail = el('div', 'cdetail');
+      var mode;
+      if (r.status === 'verified')
+        mode = 'exact match · offsets [' + r.start + '–' + r.end + ']';
+      else if (r.status === 'fuzzy')
+        mode = 'typographic-tolerant (fuzzy) · offsets [' + r.start + '–' + r.end + ']';
+      else
+        mode = '0 occurrences at any tolerance · quote is not in source “' + (src ? src.id : '?') + '”';
+      detail.appendChild(el('span', 'mode', mode));
+      if (r.status === 'verified') {
+        var occ = occurrences(src.text, c.quote);
+        detail.appendChild(el('span', 'occ',
+          ' · ' + occ + ' occurrence' + (occ === 1 ? '' : 's') + ' in source'));
+      }
+      card.appendChild(detail);
+
+      if (c.note) card.appendChild(el('div', 'cnote', c.note));
+      var ref = el('div', 'csrc',
+        'src ' + (src ? src.id : '?') + ' · ' + (src ? src.title : 'unknown source') +
+        ' · sha256 ' + (record.sources[src ? src.id : ''] || {}).sha256 + '' );
+      card.appendChild(ref);
+      list.appendChild(card);
+    });
+  }
+
+  function renderSources(record) {
+    var list = document.getElementById('srclist');
+    list.innerHTML = '';
+    data.sources.forEach(function (s) {
+      var det = el('details', 'src');
+      var sum = el('summary');
+      sum.appendChild(el('span', 'srctitle', s.title));
+      sum.appendChild(el('span', 'srcmeta',
+        '  ' + record.sources[s.id].chars + ' chars · sha256 ' +
+        record.sources[s.id].sha256.slice(0, 16) + '…'));
+      det.appendChild(sum);
+      if (s.url) {
+        var a = el('a', 'srcurl', s.url);
+        a.href = s.url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        det.appendChild(a);
+      }
+      det.appendChild(el('pre', 'srctext', s.text));
+      list.appendChild(det);
+    });
+  }
+
+  function renderGrounding(record) {
+    var pct = Math.round(record.grounding_rate * 100);
+    document.getElementById('gvalue').textContent = pct + '%';
+    document.getElementById('tally').textContent =
+      record.tally.verified + ' verified · ' + record.tally.fuzzy + ' fuzzy · ' +
+      record.tally.not_found + ' not_found';
+  }
+
+  function renderIntegrity() {
+    var recomputed = CITE.fingerprint(data);
+    var ok = recomputed === fp;
+    var box = document.getElementById('integrity');
+    box.className = 'integrity ' + (ok ? 'ok' : 'bad');
+    box.textContent = ok
+      ? '✓ INTEGRITY OK — embedded claim set re-hashes to ' + fp.slice(0, 16) + '…'
+      : '✗ INTEGRITY FAILED — content was altered after signing (embedded ' + fp.slice(0, 16) +
+        ' ≠ recomputed ' + recomputed.slice(0, 16) + ')';
+    var sc = document.getElementById('selfcheck');
+    sc.className = 'selfcheck ' + (ok ? 'ok' : 'bad');
+    sc.textContent = ok ? 'self-check ✓' : 'self-check ✗';
+  }
+
+  function renderBarcode() {
+    var box = document.getElementById('barcode');
+    box.innerHTML = '';
+    for (var i = 0; i < 64; i++) {
+      var bit = parseInt(fp.substr(i >> 2, 1), 16) & (1 << (3 - (i & 3)));
+      box.appendChild(el('span', 'bar' + (bit ? ' on' : '')));
+    }
+  }
+
+  function runVerify() {
+    var record = CITE.verifyAll(data);
+    renderResponse();
+    renderCitations(record);
+    renderSources(record);
+    renderGrounding(record);
+    renderIntegrity();
+    renderBarcode();
+    return record;
+  }
+
+  document.getElementById('btnPrint').addEventListener('click', function () { window.print(); });
+  document.getElementById('btnRe').addEventListener('click', runVerify);
+  document.getElementById('response').addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t.classList || !t.classList.contains('chip')) return;
+    var card = document.querySelector('.ccard[data-cid="' + t.dataset.cid + '"]');
+    if (card) {
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      card.classList.add('flash');
+      setTimeout(function () { card.classList.remove('flash'); }, 1300);
+    }
+  });
+  runVerify();
+})();
+</script>
+</body>
+</html>

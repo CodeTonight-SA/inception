@@ -1,0 +1,138 @@
+
+$ python3 dj.py --version
+dj 1.0.0
+
+$ python3 dj.py --path demo/.djournal init --name Founder Decision Journal
+✓ journal created  JRN-4975259F  ·  Founder Decision Journal
+  seal      hmac-sha256 (symmetric MAC — stdlib)
+  path      demo/.djournal
+  keys      seal.key (private — never share) · verify.key (public)
+
+  next:  dj log 'what I decided' --why '...' --falsify '...'
+
+$ python3 dj.py --path demo/.djournal log Ship GRASP as the open-source wedge product, not a paid API first --why Proof-layer trust is a network effect: free adoption builds the verifier ecosystem the paid tier rides on. --when 2026-01-12 --falsify If the first 500 installs retain fewer than 5% for a second logged decision, the wedge thesis is wrong.
+✓ sealed D-0001 · sha256:98261199fa31…5864 · hmac-sha256 (symmetric MAC — stdlib)
+
+$ python3 dj.py --path demo/.djournal log Anchor Merkle roots on Bitcoin via OpenTimestamps instead of running our own chain --why Outsourced, censorship-resistant timestamping beats bootstrapping consensus - the maths does the witnessing, not our uptime. --when 2026-01-19 --falsify If OTS calendar uptime falls below 99.5% in a quarter or median anchor latency exceeds 6h, reconsider self-hosting.
+✓ sealed D-0002 · sha256:1333cd50afbe…1f34 · hmac-sha256 (symmetric MAC — stdlib)
+
+$ python3 dj.py --path demo/.djournal log Cut multi-provider HAL integration from v1 scope --why The deterministic provenance floor (cite.verify) is the moat; provider breadth is a convenience layer that can land later without breaking trust. --when 2026-02-02 --falsify If any design-partner deal is lost specifically for lack of Gemini or Groq support in v1.
+✓ sealed D-0003 · sha256:f52004ac8703…6ea0 · hmac-sha256 (symmetric MAC — stdlib)
+
+$ python3 dj.py --path demo/.djournal log Adopt a permissive licence with a contributor CLA --why Permissive licensing maximises fork-and-integrate adoption for a trust layer; the CLA keeps re-licensing optional. --when 2026-02-10 --falsify If a major enterprise buyer blocks procurement on licence-purity concerns we misjudged.
+✓ sealed D-0004 · sha256:84d353088370…a47a · hmac-sha256 (symmetric MAC — stdlib)
+
+$ python3 dj.py --path demo/.djournal ls
+JRN-4975259F · Founder Decision Journal · 4 entries · seal hmac-sha256 (symmetric MAC — stdlib)
+
+  D-0001    2026-01-12  Ship GRASP as the open-source wedge product, not a paid API   sha256:98261199fa31…5864
+  D-0002    2026-01-19  Anchor Merkle roots on Bitcoin via OpenTimestamps instead of  sha256:1333cd50afbe…1f34
+  D-0003    2026-02-02  Cut multi-provider HAL integration from v1 scope              sha256:f52004ac8703…6ea0
+  D-0004    2026-02-10  Adopt a permissive licence with a contributor CLA             sha256:84d353088370…a47a
+
+$ python3 dj.py --path demo/.djournal proof D-0003
+verify: dj verify --path <journal>   (any holder of the journal)
+DJ-PROOF v1 · journal JRN-4975259F · seal hmac-sha256 · head sha256:84d353088370e68879f678b868065211afb2b3ba27a1ca95ece5c6b2157aa47a · record D-0003 · digest sha256:f52004ac8703a1d07f6b308c8372e201065b973eda22d85a6b9bbbbc7d026ea0
+
+$ python3 dj.py --path demo/.djournal verify
+(exit 0 = verified · 1 = tampered or broken)
+┌──────────────────────────────────────────────────────────────────┐
+│             DECISION JOURNAL · VERIFICATION RECEIPT              │
+├──────────────────────────────────────────────────────────────────┤
+│  journal   JRN-4975259F                                          │
+│  name      Founder Decision Journal                              │
+│  seal      hmac-sha256 (symmetric MAC — stdlib)                  │
+│  entries   4                                                     │
+├──────────────────────────────────────────────────────────────────┤
+│  D-0001      ✓  digest sha256:98261199fa31…5864                  │
+│  D-0002      ✓  digest sha256:1333cd50afbe…1f34                  │
+│  D-0003      ✓  digest sha256:f52004ac8703…6ea0                  │
+│  D-0004      ✓  digest sha256:84d353088370…a47a                  │
+├──────────────────────────────────────────────────────────────────┤
+│  chain     4/4 links intact · head matches meta                  │
+│  seals     4/4 valid                                             │
+│                                                                  │
+│  verdict   ✅ VERIFIED — this journal has not lied                │
+└──────────────────────────────────────────────────────────────────┘
+
+$ python3 dj.py --path demo/.djournal bundle --out demo/founder-journal.bundle.json
+✓ bundle written to demo/founder-journal.bundle.json  (3123 bytes)
+  hand this file to any witness — they run:  dj check demo/founder-journal.bundle.json
+  (contains verify key + entries + seals only; the sealing key stays home)
+
+$ python3 dj.py check demo/founder-journal.bundle.json
+(exit 0 = verified · 1 = tampered or broken)
+witness-checking bundle demo/founder-journal.bundle.json
+┌──────────────────────────────────────────────────────────────────┐
+│             DECISION JOURNAL · VERIFICATION RECEIPT              │
+├──────────────────────────────────────────────────────────────────┤
+│  journal   JRN-4975259F                                          │
+│  name      Founder Decision Journal                              │
+│  seal      hmac-sha256 (symmetric MAC — stdlib)                  │
+│  entries   4                                                     │
+├──────────────────────────────────────────────────────────────────┤
+│  D-0001      ✓  digest sha256:98261199fa31…5864                  │
+│  D-0002      ✓  digest sha256:1333cd50afbe…1f34                  │
+│  D-0003      ✓  digest sha256:f52004ac8703…6ea0                  │
+│  D-0004      ✓  digest sha256:84d353088370…a47a                  │
+├──────────────────────────────────────────────────────────────────┤
+│  chain     4/4 links intact · head matches meta                  │
+│  seals     4/4 valid                                             │
+│                                                                  │
+│  verdict   ✅ VERIFIED — this journal has not lied                │
+└──────────────────────────────────────────────────────────────────┘
+
+# the witness bundle verifies - TRUE.
+
+# now one byte of the owner journal is tampered (D-0002):
+
+$ python3 demo_tamper.py demo/.djournal/journal.jsonl
+tamper applied: one byte flipped in D-0002 (0x4f -> 0x4e at 'OpenTimestamps')
+
+$ python3 dj.py --path demo/.djournal verify
+(exit 0 = verified · 1 = tampered or broken)
+┌──────────────────────────────────────────────────────────────────┐
+│             DECISION JOURNAL · VERIFICATION RECEIPT              │
+├──────────────────────────────────────────────────────────────────┤
+│  journal   JRN-4975259F                                          │
+│  name      Founder Decision Journal                              │
+│  seal      hmac-sha256 (symmetric MAC — stdlib)                  │
+│  entries   4                                                     │
+├──────────────────────────────────────────────────────────────────┤
+│  D-0001      ✓  digest sha256:98261199fa31…5864                  │
+│  D-0002      ✗  digest sha256:1333cd50afbe…1f34                  │
+│  D-0003      ✗  digest sha256:f52004ac8703…6ea0                  │
+│  D-0004      ✓  digest sha256:84d353088370…a47a                  │
+├──────────────────────────────────────────────────────────────────┤
+│  chain     2/4 links BROKEN · head matches meta                  │
+│  seals     2/4 valid                                             │
+│                                                                  │
+│  verdict   ✗ TAMPER DETECTED — the chain does not lie for you    │
+│  at        D-0002 · digest mismatch (content changed: stored sha │
+└──────────────────────────────────────────────────────────────────┘
+
+# the witness bundle is a frozen snapshot - re-check it, still TRUE:
+
+$ python3 dj.py check demo/founder-journal.bundle.json
+(exit 0 = verified · 1 = tampered or broken)
+witness-checking bundle demo/founder-journal.bundle.json
+┌──────────────────────────────────────────────────────────────────┐
+│             DECISION JOURNAL · VERIFICATION RECEIPT              │
+├──────────────────────────────────────────────────────────────────┤
+│  journal   JRN-4975259F                                          │
+│  name      Founder Decision Journal                              │
+│  seal      hmac-sha256 (symmetric MAC — stdlib)                  │
+│  entries   4                                                     │
+├──────────────────────────────────────────────────────────────────┤
+│  D-0001      ✓  digest sha256:98261199fa31…5864                  │
+│  D-0002      ✓  digest sha256:1333cd50afbe…1f34                  │
+│  D-0003      ✓  digest sha256:f52004ac8703…6ea0                  │
+│  D-0004      ✓  digest sha256:84d353088370…a47a                  │
+├──────────────────────────────────────────────────────────────────┤
+│  chain     4/4 links intact · head matches meta                  │
+│  seals     4/4 valid                                             │
+│                                                                  │
+│  verdict   ✅ VERIFIED — this journal has not lied                │
+└──────────────────────────────────────────────────────────────────┘
+
+# done. journal at demo/.djournal

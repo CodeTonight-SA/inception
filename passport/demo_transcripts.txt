@@ -1,0 +1,158 @@
+HAPPIVERSE PASSPORT — DEMO TRANSCRIPTS (verbatim, captured 2026-02-11 night run)
+================================================================================
+Machine: Python 3.14.6 + Node v26.5.0 + headless Chrome (real browser render).
+Dir:    /Users/void/CodeTonight/inception/passport
+
+
+DEMO 1 — CLEAN PASSPORT (VERIFY goes GREEN)
+--------------------------------------------------------------------------------
+$ python3 generate_passport.py
+HAPPIverse Passport generator
+==========================================================================
+  agent      HAL-7 · Project Athena  (hal-7)
+  session    sess-7f3a9c21 · 2026-02-11T08:00:00Z
+  chain      10 entries (7 IDR + 3 memory)
+  root       b95d162c60dde84259d3776fb88951ca22418bd152039931f028c9bfc2543d80
+  citations  3 claims over 3 embedded sources
+
+  ════════════════════════════════════════════════════════════════════════
+  SELF-AUDIT  [CLEAN — issued document]
+  ════════════════════════════════════════════════════════════════════════
+  CHAIN: 10 entries (7 IDR + 3 MEMORY)  ·  root = sha256 Merkle over 10 leaves
+   [01] idr-001  content[OK ] link[OK ]  ← GENESIS  Every decision this agent makes is written as a sign
+   [02] idr-002  content[OK ] link[OK ]  ← 30363c8d8c…  Use sha256 over a canonical UTF-8 leaf (kind, id, ti
+   [03] idr-003  content[OK ] link[OK ]  ← 562cb84962…  The session's outward claims flow through HAPPI enve
+   [04] idr-004  content[OK ] link[OK ]  ← 67b100b8be…  Each week the Merkle root of the record chain is tim
+   [05] idr-005  content[OK ] link[OK ]  ← 3bb2a799fd…  The user-facing proof artifact is a single self-cont
+   [06] idr-006  content[OK ] link[OK ]  ← 3bba62ff0d…  Any integrity failure on replay — a content address,
+   [07] idr-007  content[OK ] link[OK ]  ← fcc1f45ec0…  Signing keys rotate quarterly; each key is itself a
+   [08] mem-001  content[OK ] link[OK ]  ← b82dfa82c3…  Tamper-evidence beats tamper-resistance. Anyone may
+   [09] mem-002  content[OK ] link[OK ]  ← eda3df642a…  The verifier is the math plus an external party. The
+   [10] mem-003  content[OK ] link[OK ]  ← 8bd91b6969…  Claims must be grounded verbatim. Every outward quot
+  ROOT  stored      b95d162c60dde84259d3776fb88951ca22418bd152039931f028c9bfc2543d80
+  ROOT  recomputed  b95d162c60dde84259d3776fb88951ca22418bd152039931f028c9bfc2543d80
+  ROOT  MATCH OK
+  CITE cite-001 [verified ] the check is string arithmetic, not judgement…
+  CITE cite-002 [verified ] content-addressed, chained to its predecessor, and Merkl…
+  CITE cite-003 [verified ] a quote is verbatim-present in its source, or it is not…
+  CITATIONS: 3/3 verified (verbatim substring)
+  VERDICT: PASS — every content address, chain link, the root, and every citation verify.
+  ════════════════════════════════════════════════════════════════════════
+
+  wrote passport.html  (30486 bytes) — open in any browser:
+    open passport.html
+  The HTML's Live Verify button runs the same arithmetic as the audit above,
+  entirely in the page's own JavaScript. The paper audits itself.
+
+
+DEMO 2 — TAMPERED PASSPORT (one record edited + one citation fabricated → VERIFY goes RED)
+--------------------------------------------------------------------------------
+$ python3 generate_passport.py --tamper
+HAPPIverse Passport generator
+==========================================================================
+  agent      HAL-7 · Project Athena  (hal-7)
+  session    sess-7f3a9c21 · 2026-02-11T08:00:00Z
+  chain      10 entries (7 IDR + 3 memory)
+  root       b95d162c60dde84259d3776fb88951ca22418bd152039931f028c9bfc2543d80
+  citations  3 claims over 3 embedded sources
+  MUTATIONS APPLIED (demo 2):
+    • idr-003 body:
+        before  The session's outward claims flow through HAPPI envelopes; cite.verify is the citation f…
+        after   The session's outward claims flow through HAPPI envelopes; cite.verify is the citation f…
+    • cite-002 quote:
+        before  content-addressed, chained to its predecessor, and Merkle-rooted
+        after   content-addressed and Merkle-rooted
+
+  ════════════════════════════════════════════════════════════════════════
+  SELF-AUDIT  [TAMPERED — altered document]
+  ════════════════════════════════════════════════════════════════════════
+  CHAIN: 10 entries (7 IDR + 3 MEMORY)  ·  root = sha256 Merkle over 10 leaves
+   [01] idr-001  content[OK ] link[OK ]  ← GENESIS  Every decision this agent makes is written as a sign
+   [02] idr-002  content[OK ] link[OK ]  ← 30363c8d8c…  Use sha256 over a canonical UTF-8 leaf (kind, id, ti
+   [03] idr-003  content[FAIL] link[OK ]  ← 562cb84962…  The session's outward claims flow through HAPPI enve
+   [04] idr-004  content[OK ] link[FAIL]  ← 67b100b8be…  Each week the Merkle root of the record chain is tim
+   [05] idr-005  content[OK ] link[OK ]  ← 3bb2a799fd…  The user-facing proof artifact is a single self-cont
+   [06] idr-006  content[OK ] link[OK ]  ← 3bba62ff0d…  Any integrity failure on replay — a content address,
+   [07] idr-007  content[OK ] link[OK ]  ← fcc1f45ec0…  Signing keys rotate quarterly; each key is itself a
+   [08] mem-001  content[OK ] link[OK ]  ← b82dfa82c3…  Tamper-evidence beats tamper-resistance. Anyone may
+   [09] mem-002  content[OK ] link[OK ]  ← eda3df642a…  The verifier is the math plus an external party. The
+   [10] mem-003  content[OK ] link[OK ]  ← 8bd91b6969…  Claims must be grounded verbatim. Every outward quot
+  ROOT  stored      b95d162c60dde84259d3776fb88951ca22418bd152039931f028c9bfc2543d80
+  ROOT  recomputed  659a42090c18872f64a744c89e75b3920197903561d4d6bcfe451abff2b5d479
+  ROOT  MISMATCH FAIL
+  CITE cite-001 [verified ] the check is string arithmetic, not judgement…
+  CITE cite-002 [not_found] content-addressed and Merkle-rooted…
+  CITE cite-003 [verified ] a quote is verbatim-present in its source, or it is not…
+  CITATIONS: 2/3 verified (verbatim substring)
+  VERDICT: FAIL — 4 integrity failure(s):
+     ✗ content address of idr-003 (stored 67b100b8beeaaf26… ≠ recomputed 70f7b04052acdd8a…)
+     ✗ chain link into idr-004 (prev 67b100b8beeaaf26… does not match the record before it)
+     ✗ merkle root (stored b95d162c60dde842… ≠ recomputed 659a42090c18872f…)
+     ✗ citation cite-002 (content-addressed and Merkle-rooted…) is NOT verbatim in source src-2
+  ════════════════════════════════════════════════════════════════════════
+
+  wrote passport_tampered.html  (30496 bytes) — open in any browser:
+    open passport_tampered.html
+
+
+CROSSCHECK — the SHIPPED page's own JS, executed in node, with node:crypto as 3rd arbiter
+--------------------------------------------------------------------------------
+$ node crosscheck.js passport.html
+  CROSSCHECK  [passport.html]  — shipped JS core vs shipped data, run in node
+  HAL-7 · Project Athena · session sess-7f3a9c21
+  chain 10 entries · stored root b95d162c60dde84259d3…
+  OK    content idr-001  js=30363c8d8c3ca53f…  crypto=30363c8d8c3ca53f…  JS == crypto == stored
+  OK    link   idr-001  prev→ GENESIS
+  OK    content idr-002  js=562cb84962a3a08f…  crypto=562cb84962a3a08f…  JS == crypto == stored
+  OK    link   idr-002  prev→ 30363c8d8c3ca53f…
+  OK    content idr-003  js=67b100b8beeaaf26…  crypto=67b100b8beeaaf26…  JS == crypto == stored
+  OK    link   idr-003  prev→ 562cb84962a3a08f…
+  OK    content idr-004  js=3bb2a799fddc7183…  crypto=3bb2a799fddc7183…  JS == crypto == stored
+  OK    link   idr-004  prev→ 67b100b8beeaaf26…
+  OK    content idr-005  js=3bba62ff0dbafc12…  crypto=3bba62ff0dbafc12…  JS == crypto == stored
+  OK    link   idr-005  prev→ 3bb2a799fddc7183…
+  OK    content idr-006  js=fcc1f45ec02d5044…  crypto=fcc1f45ec02d5044…  JS == crypto == stored
+  OK    link   idr-006  prev→ 3bba62ff0dbafc12…
+  OK    content idr-007  js=b82dfa82c39aec84…  crypto=b82dfa82c39aec84…  JS == crypto == stored
+  OK    link   idr-007  prev→ fcc1f45ec02d5044…
+  OK    content mem-001  js=eda3df642a5354f3…  crypto=eda3df642a5354f3…  JS == crypto == stored
+  OK    link   mem-001  prev→ b82dfa82c39aec84…
+  OK    content mem-002  js=8bd91b6969417698…  crypto=8bd91b6969417698…  JS == crypto == stored
+  OK    link   mem-002  prev→ eda3df642a5354f3…
+  OK    content mem-003  js=ac3ab74f4a0c9077…  crypto=ac3ab74f4a0c9077…  JS == crypto == stored
+  OK    link   mem-003  prev→ 8bd91b6969417698…
+  OK    root   stored b95d162c60dde842…  js=b95d162c60dde842…  crypto=b95d162c60dde842…
+  OK    cite   cite-001 → src-1  “the check is string arithmetic, not judgemen…”  VERIFIED (verbatim substring)
+  OK    cite   cite-002 → src-2  “content-addressed, chained to its predecesso…”  VERIFIED (verbatim substring)
+  OK    cite   cite-003 → src-3  “a quote is verbatim-present in its source, o…”  VERIFIED (verbatim substring)
+  VERDICT: PASS — 24/24 checks. Every content address, chain link,
+  the Merkle root, and every citation verify. JS == Python == node:crypto.
+  (This is the exact verdict the page's Live Verify button renders.)
+  EXIT=0
+
+$ node crosscheck.js passport_tampered.html
+  CROSSCHECK  [passport_tampered.html]  — shipped JS core vs shipped data, run in node
+  HAL-7 · Project Athena · session sess-7f3a9c21
+  chain 10 entries · stored root b95d162c60dde84259d3…
+  OK    content idr-001 … (all identical to clean except the four below)
+  FAIL  content idr-003  js=70f7b04052acdd8a…  crypto=70f7b04052acdd8a…  MISMATCH
+  FAIL  link   idr-004  prev→ 67b100b8beeaaf26…  (does not match authentic predecessor)
+  FAIL  root   stored b95d162c60dde842…  js=659a42090c18872f…  crypto=659a42090c18872f…
+  FAIL  cite   cite-002 → src-2  “content-addressed and Merkle-rooted…”  NOT_FOUND
+  VERDICT: FAIL — 4 integrity failure(s). This document has been altered:
+     ✗ content address of idr-003 (stored 67b100b8beeaaf26… ≠ recomputed 70f7b04052acdd8a…)
+     ✗ chain link into idr-004 (prev 67b100b8beeaaf26… does not match the authentic record before it)
+     ✗ merkle root (stored b95d162c60dde842… ≠ recomputed 659a42090c18872f…)
+     ✗ citation cite-002 (“content-addressed and Merkle-rooted”) is NOT verbatim in source src-2
+  EXIT=1
+
+
+REAL BROWSER RENDER (headless Chrome, --virtual-time-budget=4000, page auto-runs VERIFY on load)
+--------------------------------------------------------------------------------
+clean    passport.html           → verdict class "pass"   · 23 green dots · 0 red dots
+  "VERIFIED — Self-audit passed — this passport proves itself. All 10 content
+   addresses, all 10 chain links, the Merkle root, and all 3 citations verify."
+tampered passport_tampered.html  → verdict class "fail"   · 20 green dots · 3 red dots
+  "ALTERED — Self-audit failed — 4 integrity failure(s). This document has been changed."
+  bullets: content address of idr-003 · chain link into idr-004 · merkle root · citation cite-002
+Screenshots: _shot_clean.png (570,018 B) · _shot_tampered.png (580,880 B)

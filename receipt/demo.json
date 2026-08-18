@@ -1,0 +1,57 @@
+{
+  "title": "Bitcoin's electronic cash — and two things the paper never said",
+  "response": "Bitcoin's whitepaper proposes a purely peer-to-peer version of electronic cash [c1], with the ledger secured as a chain of hash-based proof-of-work that cannot be changed without redoing the work [c2]. The system is sometimes summarised as needing no central bank approval for transactions — a claim the paper never makes [c3]. Separately, the Universal Declaration of Human Rights opens with the principle that all human beings are born free and equal in dignity and rights [c4], and a common misquote adds that we are 'born in debt to the state' [c5].",
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Bitcoin: A Peer-to-Peer Electronic Cash System — Abstract",
+      "kind": "whitepaper",
+      "url": "https://bitcoin.org/bitcoin.pdf",
+      "text": "A purely peer-to-peer version of electronic cash would allow online payments to be sent directly from one party to another without going through a financial institution. Digital signatures provide part of the solution, but the main benefits are lost if a trusted third party is still required to prevent double-spending. We propose a solution to the double-spending problem using a peer-to-peer network. The network timestamps transactions by hashing them into an ongoing chain of hash-based proof-of-work, forming a record that cannot be changed without redoing the proof-of-work. The longest chain not only serves as proof of the sequence of events witnessed, but proof that it came from the largest pool of CPU power. As long as a majority of CPU power is controlled by nodes that are not cooperating to attack the network, they'll generate the longest chain and outpace attackers. The network itself requires minimal structure. Messages are broadcast on a best effort basis, and nodes can leave and rejoin the network at will, accepting the longest proof-of-work chain as proof of what happened while they were gone."
+    },
+    {
+      "id": "s2",
+      "title": "Universal Declaration of Human Rights, Article 1",
+      "kind": "treaty",
+      "url": "https://www.un.org/en/about-us/universal-declaration-of-human-rights",
+      "text": "All human beings are born free and equal in dignity and rights. They are endowed with reason and conscience and should act towards one another in a spirit of brotherhood."
+    }
+  ],
+  "citations": [
+    {
+      "id": "c1",
+      "source_id": "s1",
+      "quote": "The network timestamps transactions by hashing them into an ongoing chain of hash-based proof-of-work",
+      "note": "verbatim — exact substring match",
+      "expect": "verified"
+    },
+    {
+      "id": "c2",
+      "source_id": "s1",
+      "quote": "forming a record that cannot be changed without redoing the proof–of–work.",
+      "note": "verbatim, but typed with en dashes (U+2013) instead of hyphens — passes only the typographic-tolerant ladder",
+      "expect": "verified"
+    },
+    {
+      "id": "c3",
+      "source_id": "s1",
+      "quote": "no central bank approval is required for any transaction",
+      "note": "intentionally fabricated for this demo — must stamp NOT-FOUND",
+      "expect": "not_found"
+    },
+    {
+      "id": "c4",
+      "source_id": "s2",
+      "quote": "All human beings are born free and equal in dignity and rights.",
+      "note": "verbatim — exact substring match",
+      "expect": "verified"
+    },
+    {
+      "id": "c5",
+      "source_id": "s2",
+      "quote": "All human beings are born in debt to the state.",
+      "note": "intentionally fabricated for this demo — must stamp NOT-FOUND",
+      "expect": "not_found"
+    }
+  ]
+}
