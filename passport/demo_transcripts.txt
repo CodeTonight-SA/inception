@@ -1,7 +1,7 @@
 HAPPIVERSE PASSPORT — DEMO TRANSCRIPTS (verbatim, captured 2026-02-11 night run)
 ================================================================================
 Machine: Python 3.14.6 + Node v26.5.0 + headless Chrome (real browser render).
-Dir:    /Users/void/CodeTonight/inception/passport
+Dir:    ~/inception/passport
 
 
 DEMO 1 — CLEAN PASSPORT (VERIFY goes GREEN)
