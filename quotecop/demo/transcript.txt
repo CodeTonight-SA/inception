@@ -10,54 +10,54 @@
 │ deterministic citation provenance — string arithmetic, not judgement     │
 ├──────────────────────────────────────────────────────────────────────────┤
 │ source  gettysburg_address.txt                                           │
-│ sha256  cbe246a0ff5c6a329b254bab87911096772b22f1840e2a78521d5540d094c2cb │
-│ chars   1469   ·   quotes to check: 6                                    │
+│ sha256  433fdd9cf168e0040c881beefa48f05a4fabc7049126b02ad0c5bc508c0c8a01 │
+│ chars   1470   ·   quotes to check: 6                                    │
 ╰──────────────────────────────────────────────────────────────────────────╯
 ╭──────────────────────────────────────────────────────────────────────────╮
 │ ✔ VERIFIED   ·   rung: exact                                             │
 ├──────────────────────────────────────────────────────────────────────────┤
 │ quote   Four score and seven years ago                                   │
-│ offsets chars 0–30 of 1469                                               │
-│ context ⟪Four score and seven years ago⟫ our fathers brought forth on    │
-│         this con…                                                        │
+│ offsets chars 0–30 of 1470                                               │
+│ context ⟪Four score and seven years ago⟫ our fathers brought forth, on   │
+│         this co…                                                         │
 ├──────────────────────────────────────────────────────────────────────────┤
-│ source  gettysburg_address.txt  ·  sha256 cbe246a0ff5c…c2cb              │
+│ source  gettysburg_address.txt  ·  sha256 433fdd9cf168…8a01              │
 ╰──────────────────────────────────────────────────────────────────────────╯
 ╭──────────────────────────────────────────────────────────────────────────╮
 │ ✔ VERIFIED   ·   rung: whitespace · typographic                          │
 ├──────────────────────────────────────────────────────────────────────────┤
 │ quote   government of the people, by the people, for the people          │
-│ offsets chars 1379–1434 of 1469                                          │
+│ offsets chars 1380–1435 of 1470                                          │
 │ context …ave a new birth of freedom — and that ⟪government of the        │
 │         people, by the people, for the people⟫, shall not perish from    │
 │         the earth.                                                       │
 ├──────────────────────────────────────────────────────────────────────────┤
-│ source  gettysburg_address.txt  ·  sha256 cbe246a0ff5c…c2cb              │
+│ source  gettysburg_address.txt  ·  sha256 433fdd9cf168…8a01              │
 ╰──────────────────────────────────────────────────────────────────────────╯
 ╭──────────────────────────────────────────────────────────────────────────╮
 │ ✔ VERIFIED   ·   rung: whitespace · typographic                          │
 ├──────────────────────────────────────────────────────────────────────────┤
 │ quote   we can not dedicate – we can not consecrate – we can not hallow  │
 │         – this ground                                                    │
-│ offsets chars 583–660 of 1469                                            │
+│ offsets chars 584–661 of 1470                                            │
 │ context …uld do this.                                                    │
 │                                                                          │
 │         But, in a larger sense, ⟪we can not dedicate — we can not        │
 │         consecrate — we can not hallow — this ground⟫. The brave men,    │
 │         living and dead, who …                                           │
 ├──────────────────────────────────────────────────────────────────────────┤
-│ source  gettysburg_address.txt  ·  sha256 cbe246a0ff5c…c2cb              │
+│ source  gettysburg_address.txt  ·  sha256 433fdd9cf168…8a01              │
 ╰──────────────────────────────────────────────────────────────────────────╯
 ╭──────────────────────────────────────────────────────────────────────────╮
 │ ✔ VERIFIED   ·   rung: case-insensitive                                  │
 ├──────────────────────────────────────────────────────────────────────────┤
 │ quote   Government of the People, by the People, for the People          │
-│ offsets chars 1379–1434 of 1469                                          │
+│ offsets chars 1380–1435 of 1470                                          │
 │ context …ave a new birth of freedom — and that ⟪government of the        │
 │         people, by the people, for the people⟫, shall not perish from    │
 │         the earth.                                                       │
 ├──────────────────────────────────────────────────────────────────────────┤
-│ source  gettysburg_address.txt  ·  sha256 cbe246a0ff5c…c2cb              │
+│ source  gettysburg_address.txt  ·  sha256 433fdd9cf168…8a01              │
 ╰──────────────────────────────────────────────────────────────────────────╯
 ╭──────────────────────────────────────────────────────────────────────────╮
 │ ✘ NOT-FOUND                                                              │
@@ -67,7 +67,7 @@
 │ — no rung of the ladder could anchor this string in the source —         │
 │ ladder  exact → whitespace → typographic → case                          │
 ├──────────────────────────────────────────────────────────────────────────┤
-│ source  gettysburg_address.txt  ·  sha256 cbe246a0ff5c…c2cb              │
+│ source  gettysburg_address.txt  ·  sha256 433fdd9cf168…8a01              │
 ╰──────────────────────────────────────────────────────────────────────────╯
 ╭──────────────────────────────────────────────────────────────────────────╮
 │ ✘ NOT-FOUND                                                              │
@@ -77,7 +77,7 @@
 │ — no rung of the ladder could anchor this string in the source —         │
 │ ladder  exact → whitespace → typographic → case                          │
 ├──────────────────────────────────────────────────────────────────────────┤
-│ source  gettysburg_address.txt  ·  sha256 cbe246a0ff5c…c2cb              │
+│ source  gettysburg_address.txt  ·  sha256 433fdd9cf168…8a01              │
 ╰──────────────────────────────────────────────────────────────────────────╯
 ╭──────────────────────────────────────────────────────────────────────────╮
 │ grounding  ███████░░░  0.667  ·  4/6                                     │
@@ -94,39 +94,39 @@ exit code: 1
 │ deterministic citation provenance — string arithmetic, not judgement     │
 ├──────────────────────────────────────────────────────────────────────────┤
 │ source  gettysburg_address.txt                                           │
-│ sha256  cbe246a0ff5c6a329b254bab87911096772b22f1840e2a78521d5540d094c2cb │
-│ chars   1469   ·   quotes to check: 3                                    │
+│ sha256  433fdd9cf168e0040c881beefa48f05a4fabc7049126b02ad0c5bc508c0c8a01 │
+│ chars   1470   ·   quotes to check: 3                                    │
 ╰──────────────────────────────────────────────────────────────────────────╯
 ╭──────────────────────────────────────────────────────────────────────────╮
 │ ✔ VERIFIED   ·   rung: exact                                             │
 ├──────────────────────────────────────────────────────────────────────────┤
 │ quote   Four score and seven years ago                                   │
-│ offsets chars 0–30 of 1469                                               │
-│ context ⟪Four score and seven years ago⟫ our fathers brought forth on    │
-│         this con…                                                        │
+│ offsets chars 0–30 of 1470                                               │
+│ context ⟪Four score and seven years ago⟫ our fathers brought forth, on   │
+│         this co…                                                         │
 ├──────────────────────────────────────────────────────────────────────────┤
-│ source  gettysburg_address.txt  ·  sha256 cbe246a0ff5c…c2cb              │
+│ source  gettysburg_address.txt  ·  sha256 433fdd9cf168…8a01              │
 ╰──────────────────────────────────────────────────────────────────────────╯
 ╭──────────────────────────────────────────────────────────────────────────╮
 │ ✔ VERIFIED   ·   rung: exact                                             │
 ├──────────────────────────────────────────────────────────────────────────┤
 │ quote   government of the people, by the people, for the people          │
-│ offsets chars 1379–1434 of 1469                                          │
+│ offsets chars 1380–1435 of 1470                                          │
 │ context …ave a new birth of freedom — and that ⟪government of the        │
 │         people, by the people, for the people⟫, shall not perish from    │
 │         the earth.                                                       │
 ├──────────────────────────────────────────────────────────────────────────┤
-│ source  gettysburg_address.txt  ·  sha256 cbe246a0ff5c…c2cb              │
+│ source  gettysburg_address.txt  ·  sha256 433fdd9cf168…8a01              │
 ╰──────────────────────────────────────────────────────────────────────────╯
 ╭──────────────────────────────────────────────────────────────────────────╮
 │ ✔ VERIFIED   ·   rung: exact                                             │
 ├──────────────────────────────────────────────────────────────────────────┤
 │ quote   shall not perish from the earth                                  │
-│ offsets chars 1436–1467 of 1469                                          │
+│ offsets chars 1437–1468 of 1470                                          │
 │ context …eople, by the people, for the people, ⟪shall not perish from    │
 │         the earth⟫.                                                      │
 ├──────────────────────────────────────────────────────────────────────────┤
-│ source  gettysburg_address.txt  ·  sha256 cbe246a0ff5c…c2cb              │
+│ source  gettysburg_address.txt  ·  sha256 433fdd9cf168…8a01              │
 ╰──────────────────────────────────────────────────────────────────────────╯
 ╭──────────────────────────────────────────────────────────────────────────╮
 │ grounding  ██████████  1.0  ·  3/3                                       │
