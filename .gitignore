@@ -3,3 +3,4 @@ __pycache__/
 djournal/demo/
 djournal/smoke/
 *.key
+.DS_Store
