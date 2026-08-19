@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.codetonight.inception</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/python3</string>
+        <string>/Users/void/CodeTonight/inception/server.py</string>
+        <string>--port</string>
+        <string>8377</string>
+        <string>--host</string>
+        <string>127.0.0.1</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/void/CodeTonight/inception</string>
+
+    <!-- Always on: start at login and restart on crash -->
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+
+    <key>ProcessType</key>
+    <string>Background</string>
+
+    <key>StandardOutPath</key>
+    <string>/Users/void/Library/Logs/inception-daemon.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/void/Library/Logs/inception-daemon.error.log</string>
+</dict>
+</plist>

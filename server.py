@@ -289,8 +289,8 @@ class Handler(BaseHTTPRequestHandler):
             self._error(400, "Domain is required.")
             return
         domain = domain.strip()
-        if len(domain) > 200:
-            self._error(400, "Domain must be at most 200 characters.")
+        if len(domain) > 1000:
+            self._error(400, "Domain must be at most 1000 characters.")
             return
 
         deadline = data.get("deadline")
