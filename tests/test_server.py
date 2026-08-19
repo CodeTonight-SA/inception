@@ -153,6 +153,16 @@ class TestServer(unittest.TestCase):
         self.assertEqual(status, 400)
         self.assertEqual(payload["error"], "Domain is required.")
 
+    def test_plant_domain_length_bounds(self):
+        status, payload = self._post_json_obj(
+            "/api/plant", {"domain": "d" * 1000})
+        self.assertEqual(status, 200, payload)
+        status, payload = self._post_json_obj(
+            "/api/plant", {"domain": "d" * 1001})
+        self.assertEqual(status, 400)
+        self.assertEqual(payload["error"],
+                         "Domain must be at most 1000 characters.")
+
     def test_plant_bad_archetype(self):
         status, payload = self._post_json_obj("/api/plant", {
             "domain": "anything", "archetype": "bogus"})
