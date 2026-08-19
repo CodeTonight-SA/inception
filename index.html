@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>INCEPTION — the witness stack for AI</title>
+  <meta name="description" content="Five zero-install, self-verifying tools for AI provenance.">
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body id="top">
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="site-nav" aria-label="Primary">
+        <a class="brand" href="#top">INCEPTION</a>
+        <div class="nav-links">
+          <a href="#kit">KIT</a>
+          <a href="#tools">TOOLS</a>
+          <a href="#live">LIVE</a>
+          <a href="#moat">MOAT</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- 1 · HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="grid hero-grid">
+          <aside class="hero-meta span-3" aria-label="Kit metadata">
+            <dl class="meta-list">
+              <div class="meta-item">
+                <dt>CONTEXT</dt>
+                <dd>AI provenance · five tools</dd>
+              </div>
+              <div class="meta-item">
+                <dt>EST</dt>
+                <dd>2026</dd>
+              </div>
+              <div class="meta-item">
+                <dt>ENGINE</dt>
+                <dd>sha-256 · stdlib</dd>
+              </div>
+              <div class="meta-item">
+                <dt>STATUS</dt>
+                <dd><span class="dot" aria-hidden="true"></span>self-certifying</dd>
+              </div>
+            </dl>
+          </aside>
+          <div class="span-9 hero-main">
+            <h1 id="hero-title" class="hero-title">
+              <span class="line">DON'T TRUST IT.</span>
+              <span class="line line-2">WITNESS IT.</span>
+            </h1>
+            <p class="hero-body">When an AI makes a claim, a human should be able to check it without trusting anyone. Five tools answer with string arithmetic instead of judgement — files that verify themselves.</p>
+            <div class="hero-ctas">
+              <a class="btn btn-primary" href="#tools">WITNESS THE KIT</a>
+              <a class="btn btn-secondary" href="#live">PLANT A SEED</a>
+            </div>
+            <p class="trust-strip">
+              <span>ZERO INSTALL</span>
+              <span>NO ACCOUNT</span>
+              <span>NO NETWORK</span>
+              <span>AGPL-3.0-ONLY</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · KIT STAMP (live) -->
+    <section class="kit" id="kit" aria-labelledby="kit-title">
+      <div class="container">
+        <h2 id="kit-title" class="section-label">KIT STAMP</h2>
+        <div class="kit-stamp">
+          <p id="kit-stamp" class="stamp" aria-live="polite">KIT: CHECKING…</p>
+          <noscript>KIT: UNREACHABLE — START THE DAEMON: python3 server.py</noscript>
+          <button id="recheck" class="btn btn-recheck" type="button">RECHECK</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 · THE FIVE TOOLS -->
+    <section class="tools" id="tools" aria-labelledby="tools-title">
+      <div class="container">
+        <div class="grid tools-head">
+          <div class="span-4">
+            <p class="section-label">THE KIT · FIVE ANSWERS</p>
+            <h2 id="tools-title" class="section-title">FIVE TOOLS<br>· ONE QUESTION</h2>
+          </div>
+          <div class="span-8">
+            <p class="lede">Five zero-install tools, five answers to the same question. Each returns a verdict a skeptic can recompute by hand — string arithmetic, not judgement.</p>
+          </div>
+        </div>
+
+        <div class="black-panel">
+          <p class="panel-label">ONE QUESTION · FIVE ANSWERS</p>
+          <p class="panel-question">When an AI makes a claim, how does a human check it without trusting anyone?</p>
+          <ol class="index-list">
+            <li><span class="num">01</span><span class="name">receipt</span></li>
+            <li><span class="num">02</span><span class="name">passport</span></li>
+            <li><span class="num">03</span><span class="name">quotecop</span></li>
+            <li><span class="num">04</span><span class="name">incept</span></li>
+            <li><span class="num">05</span><span class="name">djournal</span></li>
+          </ol>
+        </div>
+
+        <div class="tool-grid">
+
+          <article class="tool-card">
+            <span class="card-num">01</span>
+            <h3 class="card-title">THE AI RECEIPT</h3>
+            <p class="card-job">A thermal-paper receipt for any AI claim; citations verified in-browser with offsets, green VERIFIED / red NOT-FOUND.</p>
+            <p class="card-moment"><span class="micro">MOMENT</span>Edit one character of the claim set and the receipt stamps INTEGRITY FAILED — the barcode IS the fingerprint.</p>
+            <ul class="tag-strip" aria-label="Properties">
+              <li>IN-BROWSER</li>
+              <li>OFFSETS</li>
+              <li>SHA-256</li>
+            </ul>
+            <a class="card-link" href="/receipt/receipt.html">OPEN</a>
+          </article>
+
+          <article class="tool-card">
+            <span class="card-num">02</span>
+            <h3 class="card-title">HAPPIVERSE PASSPORT</h3>
+            <p class="card-job">One HTML file renders an AI session's papers; LIVE VERIFY re-runs the whole audit in the page's own JavaScript.</p>
+            <p class="card-moment"><span class="micro">MOMENT</span>Identity papers that prove themselves: edit one word and the page stamps itself ALTERED in red, naming which record broke.</p>
+            <ul class="tag-strip" aria-label="Properties">
+              <li>ONE FILE</li>
+              <li>IN-PAGE AUDIT</li>
+              <li>SHA-256</li>
+            </ul>
+            <a class="card-link" href="/passport/passport.html">OPEN</a>
+          </article>
+
+          <article class="tool-card">
+            <span class="card-num">03</span>
+            <h3 class="card-title">CITE-COP</h3>
+            <p class="card-job">The anti-hallucination button. One command answers whether a quote actually exists in its source.</p>
+            <p class="card-moment"><span class="micro">MOMENT</span>The verdict card is the product: green with character offsets, or an undeniable red NOT-FOUND.</p>
+            <ul class="tag-strip" aria-label="Properties">
+              <li>ONE COMMAND</li>
+              <li>OFFSETS</li>
+              <li>STD-LIB</li>
+            </ul>
+            <a class="card-link" href="/quotecop/quotecop.py">RUN</a>
+          </article>
+
+          <article class="tool-card">
+            <span class="card-num">04</span>
+            <h3 class="card-title">INCEPTION SEED</h3>
+            <p class="card-job">A domain in, a signed falsifiable genesis hypothesis and a working tool out — all content-addressed.</p>
+            <p class="card-moment"><span class="micro">MOMENT</span>Determinism proven: two runs are byte-identical; append one line and the chain reads TAMPERED.</p>
+            <ul class="tag-strip" aria-label="Properties">
+              <li>CONTENT-ADDRESSED</li>
+              <li>FALSIFIABLE</li>
+              <li>SHA-256</li>
+            </ul>
+            <a class="card-link" href="/incept/out/the-grip-sovereign-moat-grip-convergent-/genesis.md">READ</a>
+          </article>
+
+          <article class="tool-card">
+            <span class="card-num">05</span>
+            <h3 class="card-title">DECISION JOURNAL</h3>
+            <p class="card-job">Prove what you decided. Append-only sealed entries; tamper a byte and verification breaks.</p>
+            <p class="card-moment"><span class="micro">MOMENT</span>Your journal cannot lie about itself.</p>
+            <ul class="tag-strip" aria-label="Properties">
+              <li>APPEND-ONLY</li>
+              <li>SEALED</li>
+              <li>SHA-256</li>
+            </ul>
+            <a class="card-link" href="/djournal/dj.py">RUN</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · LIVE · PLANT A SEED -->
+    <section class="live" id="live" aria-labelledby="live-title">
+      <div class="container">
+        <div class="grid">
+          <div class="span-4">
+            <p class="section-label">LIVE · PLANT A SEED</p>
+            <h2 id="live-title" class="section-title">PLANT A SEED</h2>
+          </div>
+          <div class="span-8">
+            <div class="terminal">
+              <div class="terminal-chrome">
+                <span class="tdot red" aria-hidden="true"></span>
+                <span class="tdot yellow" aria-hidden="true"></span>
+                <span class="tdot green" aria-hidden="true"></span>
+                <span class="terminal-title">incept.py — plant</span>
+              </div>
+              <div class="terminal-body">
+                <p class="terminal-prompt"><span class="prompt">$</span> incept.py plant</p>
+                <form id="plant-form" novalidate>
+                  <div class="field">
+                    <label for="domain">DOMAIN</label>
+                    <textarea id="domain" name="domain" rows="6" spellcheck="false" required>the grip-sovereign moat: GRIP convergent RSI with guardrails and Banach idempotency, HAL harness abstraction with sovereign multi-LLM councils, HAPPI ai-as-a-syscall 1.3 with IDR and memory-chain provenance, GRASP tamper-evident permanent decision storage — don't trust the AI, witness it</textarea>
+                  </div>
+                  <div class="field-row">
+                    <div class="field">
+                      <label for="deadline">DEADLINE (OPTIONAL)</label>
+                      <input id="deadline" name="deadline" type="date" autocomplete="off">
+                    </div>
+                    <div class="field">
+                      <label for="archetype">ARCHETYPE</label>
+                      <select id="archetype" name="archetype">
+                        <option value="auto" selected>AUTO (DEFAULT)</option>
+                        <option value="quotecheck">QUOTECHECK</option>
+                        <option value="passgrade">PASSGRADE</option>
+                        <option value="journal">JOURNAL</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button id="plant-btn" class="btn btn-plant" type="submit">PLANT</button>
+                </form>
+                <div id="plant-result" class="plant-result" role="status" aria-live="polite"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · THE MOAT SEED -->
+    <section class="moat" id="moat" aria-labelledby="moat-title">
+      <div class="container">
+        <div class="grid">
+          <div class="span-4">
+            <p class="section-label">PLANTED · THE MOAT</p>
+            <h2 id="moat-title" class="section-title">THE GRIP-SOVEREIGN MOAT</h2>
+          </div>
+          <div class="span-8">
+            <div class="moat-card">
+              <p class="moat-body">One idea-seed covering the four layers of the moat: convergent RSI with guardrails and Banach idempotency; a harness abstraction with sovereign multi-LLM councils; AI as a syscall with signed provenance; decisions stored tamper-evident. Planted by INCEPTION, verified by arithmetic.</p>
+              <dl class="moat-meta">
+                <div class="m-row">
+                  <dt>DEADLINE</dt>
+                  <dd id="moat-deadline">2026-01-19</dd>
+                </div>
+                <div class="m-row">
+                  <dt>ARCHETYPE</dt>
+                  <dd id="moat-archetype">journal</dd>
+                </div>
+                <div class="m-row">
+                  <dt>HYPOTHESIS</dt>
+                  <dd id="moat-hypothesis">5a7c4372b40d6794967ac46203d0bc3e5da2987335f28bb3f750b89446646500</dd>
+                </div>
+                <div class="m-row">
+                  <dt>SEED</dt>
+                  <dd id="moat-seed">f3f3ade8376cf80c1c5691de1e220107b97cdbe8153f524c263de01fe8485f47</dd>
+                </div>
+                <div class="m-row">
+                  <dt>ROOT</dt>
+                  <dd id="moat-root">10567f69e96897a4208b987d2f7a3282ee11c90a6d51d891e8e4bf1abe8e4c21</dd>
+                </div>
+              </dl>
+              <p class="moat-source" id="moat-source" aria-live="polite">recorded at plant time</p>
+              <a class="card-link" href="/incept/out/the-grip-sovereign-moat-grip-convergent-/genesis.md">READ GENESIS</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-trust">SHA-256 · ZERO INSTALL · NO ACCOUNT · NO NETWORK</p>
+      <p class="footer-root" id="footer-root"><span class="k">KIT ROOT  </span>sha256:b5121f7899d48a739dcf33484390ef5e0d489ac4753ae1cbf5d8fcf925baea1c</p>
+      <p class="footer-tagline">don't trust it — witness it</p>
+      <p class="footer-legal">AGPL-3.0-only · CodeTonight SA · 2026</p>
+    </div>
+  </footer>
+
+  <script src="/assets/app.js" defer></script>
+</body>
+</html>
